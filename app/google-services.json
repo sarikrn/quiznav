@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "404699392924",
+    "firebase_url": "https://quiznav-dfa86.firebaseio.com",
+    "project_id": "quiznav-dfa86",
+    "storage_bucket": "quiznav-dfa86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404699392924:android:6cd643fe53c0b0da",
+        "android_client_info": {
+          "package_name": "com.informatics.research.quiznav"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404699392924-tm301psh45l2e8sdre6d4l0ngsjstt5r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.informatics.research.quiznav",
+            "certificate_hash": "551954d632d5ccabd75083ce8efe3bd54ac79362"
+          }
+        },
+        {
+          "client_id": "404699392924-gakquejq6hdis1pffsf453sbraca4gbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeCarhhx38tSW4BsTjkC8L3Vcnj6ZRxaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404699392924-gakquejq6hdis1pffsf453sbraca4gbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
