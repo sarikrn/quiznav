@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav;
+package com.informatics.research.quiznav.home;
 
 import android.os.Bundle;
 
@@ -7,27 +7,49 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.informatics.research.quiznav.R;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView setKey, setTitle, setYearOfStudy, setLecturer, setStudentsCount;
+    private DatabaseReference dbSubject;
+    private RecyclerView rc_subject_list_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbSubject = FirebaseDatabase.getInstance().getReference().child("subjects");
+
+        rc_subject_list_layout = findViewById(R.id.subject_list_layout);
+        setTitle = (TextView) findViewById(R.id.subject_name);
+        setYearOfStudy = (TextView) findViewById(R.id.year_of_study);
+        setLecturer = (TextView) findViewById(R.id.lecturer_name);
+        setStudentsCount = (TextView) findViewById(R.id.students_number);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -45,6 +67,23 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        dbSubject.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
