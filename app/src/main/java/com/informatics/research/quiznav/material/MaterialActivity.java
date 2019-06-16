@@ -1,5 +1,6 @@
 package com.informatics.research.quiznav.material;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.informatics.research.quiznav.R;
+import com.informatics.research.quiznav.material.model.Materials;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -21,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+
+import java.util.HashMap;
 
 public class MaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +50,14 @@ public class MaterialActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent intent = getIntent();
+        HashMap<String, Materials> materials = (HashMap<String, Materials>) intent.getSerializableExtra("Materials");
     }
 
     @Override

@@ -1,28 +1,33 @@
 package com.informatics.research.quiznav.home.model;
 
+import com.informatics.research.quiznav.material.model.Materials;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class SubjectModel {
-    private String key, title, lecturer, year;
+public class Subjects {
+    private String key, title, lecturer, year, card_colour;
     private ArrayList<String> students = new ArrayList<>();
-    private ArrayList<MaterialModel> materials = new ArrayList<>();
+    private HashMap<String, Materials> materials = new HashMap<>();
 
-    public SubjectModel(){
+    public Subjects(){
     }
 
-    public SubjectModel(String key, String title, String lecturer, String year, ArrayList<String> students) {
+    public Subjects(String key, String title, String lecturer, String year, String card_colour, ArrayList<String> students) {
         this.key = key;
         this.title = title;
         this.lecturer = lecturer;
         this.year = year;
+        this.card_colour = card_colour;
         this.students = students;
     }
 
-    public SubjectModel(String key, String title, String lecturer, String year, ArrayList<String> students, ArrayList<MaterialModel> materials) {
+    public Subjects(String key, String title, String lecturer, String year, String card_colour, ArrayList<String> students, HashMap<String, Materials> materials) {
         this.key = key;
         this.title = title;
         this.lecturer = lecturer;
         this.year = year;
+        this.card_colour = card_colour;
         this.students = students;
         this.materials = materials;
     }
@@ -59,12 +64,12 @@ public class SubjectModel {
         this.year = year;
     }
 
-    public ArrayList<MaterialModel> getMaterialModel() {
-        return materials;
+    public String getCard_colour() {
+        return card_colour;
     }
 
-    public void setMaterialModel(ArrayList<MaterialModel> materials) {
-        this.materials = materials;
+    public void setCard_colour(String card_colour) {
+        this.card_colour = card_colour;
     }
 
     public ArrayList<String> getStudents() {
@@ -75,7 +80,15 @@ public class SubjectModel {
         this.students = students;
     }
 
+    public HashMap<String, Materials> getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(HashMap<String, Materials> materials) {
+        this.materials = materials;
+    }
+
     public Integer getStudentsCount(){
-        return 1;
+        return students.size();
     }
 }

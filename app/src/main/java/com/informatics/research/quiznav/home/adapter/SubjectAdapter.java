@@ -5,31 +5,31 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.home.model.MaterialModel;
-import com.informatics.research.quiznav.home.model.SubjectModel;
+import com.informatics.research.quiznav.home.model.Subjects;
 import com.informatics.research.quiznav.material.MaterialActivity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHolder> {
 
-    private List<SubjectModel> dfSubjectModel;
+    private ArrayList<Subjects> dfSubjects;
     private Activity mActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public CardView subject_list_layout;
+        public LinearLayout card_view_layout;
         public TextView txt_subject_name, txt_year_of_study, txt_lecturer_name, txt_students_number;
 
         public MyViewHolder(View view) {
             super(view);
+            card_view_layout = view.findViewById(R.id.card_view_layout);
             subject_list_layout = view.findViewById(R.id.subject_list_layout);
             txt_subject_name = view.findViewById(R.id.subject_name);
             txt_year_of_study = view.findViewById(R.id.year_of_study);
@@ -38,8 +38,8 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
         }
     }
 
-    public SubjectAdapter(List<SubjectModel> dfSubjectModel, Activity activity) {
-        this.dfSubjectModel = dfSubjectModel;
+    public SubjectAdapter(ArrayList<Subjects> dfSubjects, Activity activity) {
+        this.dfSubjects = dfSubjects;
         this.mActivity = activity;
     }
 
@@ -53,19 +53,23 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        final SubjectModel subjectModel = dfSubjectModel.get(position);
+        final Subjects subjects = dfSubjects.get(position);
 
-        holder.txt_subject_name.setText(subjectModel.getTitle());
-        holder.txt_year_of_study.setText(subjectModel.getYear());
-        holder.txt_lecturer_name.setText(subjectModel.getLecturer());
-        holder.txt_students_number.setText(subjectModel.getStudentsCount());
+        holder.txt_subject_name.setText(subjects.getTitle());
+        holder.txt_year_of_study.setText(subjects.getYear());
+        holder.txt_lecturer_name.setText(subjects.getLecturer());
+        holder.txt_students_number.setText(String.valueOf(subjects.getStudentsCount()) + " students");
+        System.out.println("materials" + subjects.getMaterials());
 
+//        holder.card_view_layout.setBackgroundColor(Color.WHITE);
         holder.subject_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goDetail = new Intent(mActivity, MaterialActivity.class);
-                goDetail.putExtra("Subject Code", subjectModel.getKey());
-                goDetail.putExtra("Subject Title", subjectModel.getTitle());
+                goDetail.putExtra("Subject Code", subjects.getKey())
+                        .putExtra("Subject Title", subjects.getTitle())
+                        .putExtra("Materials", subjects.getMaterials())
+                        .putExtra("M", subjects.getMaterials());
                 mActivity.startActivity(goDetail);
             }
         });
@@ -73,7 +77,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return dfSubjectModel.size();
+        return dfSubjects.size();
     }
 
 }

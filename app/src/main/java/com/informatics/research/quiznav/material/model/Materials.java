@@ -1,12 +1,14 @@
-package com.informatics.research.quiznav.home.model;
+package com.informatics.research.quiznav.material.model;
 
-public class MaterialModel {
+import java.io.Serializable;
+
+public class Materials implements Serializable {
     private String key, desc, title;
 
-    public MaterialModel(){
+    public Materials(){
     }
 
-    public MaterialModel(String key, String desc, String title){
+    public Materials(String key, String desc, String title){
         this.key = key;
         this.desc = desc;
         this.title = title;
