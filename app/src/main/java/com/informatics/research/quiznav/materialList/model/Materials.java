@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav.material.model;
+package com.informatics.research.quiznav.materialList.model;
 
 import java.io.Serializable;
 

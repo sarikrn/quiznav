@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".material.MaterialActivity"
+    tools:context=".materialList.MaterialListActivity"
     android:background="@color/colorGeneral">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,14 +16,13 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorGeneral"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="@color/colorAccent"
             app:subtitleTextColor="@color/colorAccent"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_material" />
+    <include layout="@layout/content_material_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

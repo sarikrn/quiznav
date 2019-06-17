@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
 import com.informatics.research.quiznav.home.model.Subjects;
-import com.informatics.research.quiznav.material.MaterialActivity;
+import com.informatics.research.quiznav.materialList.MaterialListActivity;
 
 import java.util.ArrayList;
 
@@ -64,7 +64,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
         holder.subject_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goDetail = new Intent(mActivity, MaterialActivity.class);
+                Intent goDetail = new Intent(mActivity, MaterialListActivity.class);
                 goDetail.putExtra("Subject Code", subjects.getKey())
                         .putExtra("Subject Title", subjects.getTitle())
                         .putExtra("Lecturer Name", subjects.getLecturer())

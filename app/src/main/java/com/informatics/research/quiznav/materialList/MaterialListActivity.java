@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav.material;
+package com.informatics.research.quiznav.materialList;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -15,10 +15,9 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.material.adapter.MaterialsAdapter;
-import com.informatics.research.quiznav.material.model.Materials;
+import com.informatics.research.quiznav.materialList.adapter.MaterialsAdapter;
+import com.informatics.research.quiznav.materialList.model.Materials;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -34,11 +33,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MaterialActivity extends AppCompatActivity
+public class MaterialListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ProgressDialog loading;
 
-    private DatabaseReference dbMaterial;
+    private DatabaseReference dbQuizes;
 
     private RecyclerView rc_material_list_layout;
     private TextView setTitle, setLecturer;
@@ -51,13 +50,11 @@ public class MaterialActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_material);
+        setContentView(R.layout.activity_material_list);
 
         rc_material_list_layout = findViewById(R.id.rc_material_list_layout);
         setTitle = (TextView) findViewById(R.id.subject_name);
         setLecturer = (TextView) findViewById(R.id.lecturer_name);
-
-        dbMaterial = FirebaseDatabase.getInstance().getReference().child("subjects");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,7 +88,7 @@ public class MaterialActivity extends AppCompatActivity
         rc_material_list_layout.setLayoutManager(mLayoutManager);
         rc_material_list_layout.setItemAnimator(new DefaultItemAnimator());
 
-        loading = ProgressDialog.show(MaterialActivity.this,
+        loading = ProgressDialog.show(MaterialListActivity.this,
                 null,
                 "Please wait...",
                 true,
@@ -102,7 +99,7 @@ public class MaterialActivity extends AppCompatActivity
             System.out.println(entry.getKey() + " " + entry.getValue());
             materialsArrayList.add(entry.getValue());
         }
-        materialsAdapter = new MaterialsAdapter(materialsArrayList, MaterialActivity.this);
+        materialsAdapter = new MaterialsAdapter(materialsArrayList, MaterialListActivity.this);
         rc_material_list_layout.setAdapter(materialsAdapter);
         loading.dismiss();
     }

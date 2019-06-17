@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav.material.adapter;
+package com.informatics.research.quiznav.materialList.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.material.model.Materials;
-import com.informatics.research.quiznav.quizes.QuizesActivity;
+import com.informatics.research.quiznav.materialList.model.Materials;
+import com.informatics.research.quiznav.quizes.QuizesListActivity;
 
 import java.util.ArrayList;
 
@@ -59,8 +59,10 @@ public class MaterialsAdapter extends RecyclerView.Adapter<MaterialsAdapter.MyVi
         holder.material_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goDetail = new Intent(mActivity, QuizesActivity.class);
-                goDetail.putExtra("Material Code", materials.getKey());
+                Intent goDetail = new Intent(mActivity, QuizesListActivity.class);
+                goDetail.putExtra("Material Code", materials.getKey())
+                        .putExtra("Material Name", materials.getTitle())
+                        .putExtra("Material Desc", materials.getDesc());
                 mActivity.startActivity(goDetail);
             }
         });

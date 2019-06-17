@@ -14,13 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".quizes.QuizActivity"></activity>
         <activity
-            android:name=".quizes.QuizesActivity"
-            android:label="@string/title_activity_quizes"></activity>
+            android:name=".quizes.QuizesListActivity"
+            android:label="Quiz Navigation" />
         <activity
             android:name=".home.HomeActivity"
             android:label="Quiz Navigation" />
-        <activity android:name=".material.MaterialActivity" />
+        <activity android:name=".materialList.MaterialListActivity" />
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/app_name"
