@@ -1,6 +1,6 @@
 package com.informatics.research.quiznav.material;
 
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,25 +14,51 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.informatics.research.quiznav.R;
+import com.informatics.research.quiznav.material.adapter.MaterialsAdapter;
 import com.informatics.research.quiznav.material.model.Materials;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MaterialActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private ProgressDialog loading;
+
+    private DatabaseReference dbMaterial;
+
+    private RecyclerView rc_material_list_layout;
+    private TextView setTitle, setLecturer;
+
+    private HashMap<String, Materials> materials;
+    private ArrayList<Materials> materialsArrayList;
+    private String SubjectCode, SubjectTitle, LecturerName;
+    private MaterialsAdapter materialsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_material);
+
+        rc_material_list_layout = findViewById(R.id.rc_material_list_layout);
+        setTitle = (TextView) findViewById(R.id.subject_name);
+        setLecturer = (TextView) findViewById(R.id.lecturer_name);
+
+        dbMaterial = FirebaseDatabase.getInstance().getReference().child("subjects");
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -56,8 +82,29 @@ public class MaterialActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-        Intent intent = getIntent();
-        HashMap<String, Materials> materials = (HashMap<String, Materials>) intent.getSerializableExtra("Materials");
+        SubjectCode = getIntent().getStringExtra("Subject Code");
+        SubjectTitle = getIntent().getStringExtra("Subject Title");
+        LecturerName = getIntent().getStringExtra("Lecturer Name");
+        materials = (HashMap<String, Materials>) getIntent().getSerializableExtra("Materials");
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        rc_material_list_layout.setLayoutManager(mLayoutManager);
+        rc_material_list_layout.setItemAnimator(new DefaultItemAnimator());
+
+        loading = ProgressDialog.show(MaterialActivity.this,
+                null,
+                "Please wait...",
+                true,
+                false);
+
+        materialsArrayList = new ArrayList<>();
+        for(HashMap.Entry<String, Materials> entry : materials.entrySet()){
+            System.out.println(entry.getKey() + " " + entry.getValue());
+            materialsArrayList.add(entry.getValue());
+        }
+        materialsAdapter = new MaterialsAdapter(materialsArrayList, MaterialActivity.this);
+        rc_material_list_layout.setAdapter(materialsAdapter);
+        loading.dismiss();
     }
 
     @Override

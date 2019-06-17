@@ -46,7 +46,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.subject_list, parent, false);
+                .inflate(R.layout.list_subject, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -59,7 +59,6 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
         holder.txt_year_of_study.setText(subjects.getYear());
         holder.txt_lecturer_name.setText(subjects.getLecturer());
         holder.txt_students_number.setText(String.valueOf(subjects.getStudentsCount()) + " students");
-        System.out.println("materials" + subjects.getMaterials());
 
 //        holder.card_view_layout.setBackgroundColor(Color.WHITE);
         holder.subject_list_layout.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +67,8 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
                 Intent goDetail = new Intent(mActivity, MaterialActivity.class);
                 goDetail.putExtra("Subject Code", subjects.getKey())
                         .putExtra("Subject Title", subjects.getTitle())
-                        .putExtra("Materials", subjects.getMaterials())
-                        .putExtra("M", subjects.getMaterials());
+                        .putExtra("Lecturer Name", subjects.getLecturer())
+                        .putExtra("Materials", subjects.getMaterials());
                 mActivity.startActivity(goDetail);
             }
         });
