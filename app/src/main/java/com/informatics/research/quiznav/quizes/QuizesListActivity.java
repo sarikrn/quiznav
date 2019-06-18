@@ -105,8 +105,8 @@ public class QuizesListActivity extends AppCompatActivity {
         material_name = (TextView) findViewById(R.id.material_name);
         material_desc = (TextView) findViewById(R.id.material_desc);
 
-        material_name.setText(String.valueOf(MaterialName));
-        material_desc.setText(String.valueOf(MaterialDesc));
+        material_name.setText(MaterialName);
+        material_desc.setText(MaterialDesc);
     }
 
     protected void UpdateUIKuis(){

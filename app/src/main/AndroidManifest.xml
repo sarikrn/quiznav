@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizes.QuizActivity"></activity>
+        <activity
+            android:name=".quizes.QuizActivity"/>
         <activity
             android:name=".quizes.QuizesListActivity"
             android:label="Quiz Navigation" />

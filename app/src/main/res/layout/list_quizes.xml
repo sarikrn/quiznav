@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     card_view:cardBackgroundColor="#fff"
     card_view:cardElevation="0dp"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardUseCompatPadding="true"
+    android:id="@+id/card_view_quiz_layout">
 
     <LinearLayout
         android:id="@+id/quizes_list_layout"

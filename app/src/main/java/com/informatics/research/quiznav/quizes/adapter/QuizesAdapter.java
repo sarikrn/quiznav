@@ -25,7 +25,6 @@ import java.util.HashMap;
 
 public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHolder> {
 
-//    private HashMap<String, Quizes> dfQuizesHashMap;
     private ArrayList<Quizes> dfQuizes;
     private Activity mActivity;
 
@@ -50,10 +49,6 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
         this.dfQuizes = dfQuizes;
         this.mActivity = mActivity;
     }
-//    public QuizesAdapter(HashMap<String, Quizes> dfQuizesHashMap, Activity mActivity){
-//        this.dfQuizesHashMap = dfQuizesHashMap;
-//        this.mActivity = mActivity;
-//    }
 
     @NonNull
     @Override
