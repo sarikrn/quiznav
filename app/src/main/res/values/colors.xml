@@ -3,6 +3,7 @@
     <!--<color name="colorPrimary">#FFF</color>-->
     <color name="colorPrimary">#FEC820</color>
     <color name="colorPrimaryDark">#EDA31E</color>
+    <color name="colorPrimaryDarkLight">#f9ac20</color>
     <color name="colorSecondary">#E5D1C8</color>
     <color name="colorSecondaryDark">#B4947B</color>
     <color name="colorSecondaryLight">#F2F2F2</color>

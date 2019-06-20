@@ -6,25 +6,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.home.adapter.SubjectAdapter;
 import com.informatics.research.quiznav.quizes.model.Questions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyViewHolder> {
 
+    private ArrayList<String> dfAnswers;
     private ArrayList<Questions> dfQuestion;
     private Activity mActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView txt_question_categorize, txt_question_desc, txt_number_of_question_card_view;
         private Button btn_submit_answer;
+//        private RadioButton answer_A, answer_B, answer_C, answer_D, answer_E;
+        private RecyclerView rc_answer_list;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -33,6 +39,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
             txt_question_categorize = itemView.findViewById(R.id.question_categorize);
             txt_question_desc = itemView.findViewById(R.id.question_desc);
             btn_submit_answer = itemView.findViewById(R.id.submit_answer);
+//            answer_A = itemView.findViewById(R.id.answer_A);
+//            answer_B = itemView.findViewById(R.id.answer_B);
+//            answer_C = itemView.findViewById(R.id.answer_C);
+//            answer_D = itemView.findViewById(R.id.answer_D);
+//            answer_E = itemView.findViewById(R.id.answer_E);
+            rc_answer_list = itemView.findViewById(R.id.rc_answer_list);
         }
     }
 
@@ -58,6 +70,26 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         holder.txt_question_desc.setText(questions.getDesc());
         holder.txt_question_categorize.setText(questions.getCategorize());
         holder.txt_question_categorize.setTextColor(CategorizeLabelColor(questions.getCategorize()));
+
+//        RecyclerView Answer
+        AnswerAdapter answerAdapter;
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
+        holder.rc_answer_list.setLayoutManager(mLayoutManager);
+        holder.rc_answer_list.setItemAnimator(new DefaultItemAnimator());
+
+        dfAnswers = new ArrayList<>();
+        for(HashMap.Entry<String, String> entry : questions.getAnswers().entrySet()){
+            dfAnswers.add(entry.getValue());
+        }
+        answerAdapter = new AnswerAdapter(dfAnswers, mActivity);
+        holder.rc_answer_list.setAdapter(answerAdapter);
+
+        holder.btn_submit_answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

@@ -5,9 +5,9 @@
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@android:color/white"
     tools:context=".login.LoginActivity">
 
     <RelativeLayout
@@ -19,8 +19,9 @@
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="50dp"
+            android:gravity="center">
+
             <ImageView
                 android:layout_width="154dp"
                 android:layout_height="121dp"
@@ -32,8 +33,8 @@
             android:id="@+id/form_login_email_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/logo">
+            android:layout_below="@id/logo"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/email"
@@ -51,24 +52,24 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:clickable="true"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="@android:color/black"
                 android:textColorHint="#686868"
-                android:textSize="14dp"
-                android:layout_marginTop="10dp"/>
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
                 android:background="@drawable/button_primary"
                 android:text="Submit"
                 android:textColor="@android:color/black"
-                android:textSize="14dp"
-                android:layout_marginTop="20sp"/>
+                android:textSize="14dp" />
 
         </LinearLayout>
 
@@ -76,19 +77,19 @@
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_below="@id/form_login_email_layout"
-            android:padding="5dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OR"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingLeft="10dp"/>
+                android:text="OR" />
 
         </LinearLayout>
 
@@ -96,8 +97,8 @@
             android:id="@+id/login_social_media_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_below="@id/text"
+            android:layout_marginTop="20dp"
             android:padding="5dp">
 
             <Button

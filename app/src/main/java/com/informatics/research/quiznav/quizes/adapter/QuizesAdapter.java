@@ -10,18 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.home.adapter.SubjectAdapter;
-import com.informatics.research.quiznav.home.model.Subjects;
-import com.informatics.research.quiznav.materialList.MaterialListActivity;
 import com.informatics.research.quiznav.quizes.QuizActivity;
 import com.informatics.research.quiznav.quizes.model.Quizes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHolder> {
 

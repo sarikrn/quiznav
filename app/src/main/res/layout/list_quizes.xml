@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_quiz_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardBackgroundColor="#fff"
     card_view:cardElevation="0dp"
-    card_view:cardUseCompatPadding="true"
-    android:id="@+id/card_view_quiz_layout">
+    card_view:cardUseCompatPadding="true">
 
     <LinearLayout
         android:id="@+id/quizes_list_layout"
@@ -47,18 +46,18 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/result_average"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
+                    android:layout_weight="1"
                     android:text="86"
-                    android:textSize="22dp"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textSize="22dp" />
 
                 <View
                     android:id="@+id/divider_2"
@@ -70,12 +69,12 @@
                 <TextView
                     android:id="@+id/score_averagee"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="1"
                     android:text="98"
-                    android:textSize="22dp"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textSize="22dp" />
 
             </LinearLayout>
 
@@ -83,15 +82,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/a"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
+                    android:layout_weight="1"
                     android:text="Rerata Perolehan"
-                    android:textSize="14dp"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textSize="14dp" />
 
                 <View
                     android:id="@+id/divider_3"
@@ -103,12 +103,12 @@
                 <TextView
                     android:id="@+id/b"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
+                    android:layout_weight="1"
                     android:text="Rerata Kelas"
-                    android:textSize="14dp"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:textSize="14dp" />
 
             </LinearLayout>
 
@@ -134,7 +134,7 @@
                 android:layout_below="@+id/progress_bar_number_of_quizes"
                 android:layout_marginTop="3dp"
                 android:gravity="end"
-                android:text="9/10"/>
+                android:text="9/10" />
 
             <ProgressBar
                 android:id="@+id/progress_bar_number_of_quizes"

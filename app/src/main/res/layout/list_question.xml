@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/number_layout_question"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:layout_gravity="center">
 
                 <TextView
                     android:id="@+id/number_of_question_card_view"
@@ -33,7 +34,7 @@
                     android:gravity="top"
                     android:text="1"
                     android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -42,7 +43,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/question_categorize"
@@ -51,13 +52,15 @@
                     android:layout_marginBottom="5dp"
                     android:text="Kategori Soal: Sulit"
                     android:textColor="@color/colorDanger"
-                    android:textSize="14dp" />
+                    android:textSize="12dp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pertanyaan"
-                    android:textSize="14dp" />
+                    android:text="Point: 80"
+                    android:textSize="12dp"
+                    android:textColor="@color/colorSubtitle"/>
 
             </LinearLayout>
 
@@ -78,24 +81,69 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/question_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="Pertanyaan"
-                    android:textSize="18dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:textSize="18dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rc_answer_list"
+                <RadioGroup
+                    android:id="@+id/radio_group_answer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_answer_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/answer_A"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Jawaban"/>-->
+
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/answer_B"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Jawaban"/>-->
+
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/answer_C"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Jawaban"/>-->
+
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/answer_D"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Jawaban"/>-->
+
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/answer_E"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Jawaban"/>-->
+
+                    <!--</LinearLayout>-->
+
+                </RadioGroup>
 
             </LinearLayout>
 
@@ -109,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_primary"
                     android:text="Submit"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
             </LinearLayout>
 
         </LinearLayout>
