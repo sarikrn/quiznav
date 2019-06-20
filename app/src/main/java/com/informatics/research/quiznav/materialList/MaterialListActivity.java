@@ -37,8 +37,6 @@ public class MaterialListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ProgressDialog loading;
 
-    private DatabaseReference dbQuizes;
-
     private RecyclerView rc_material_list_layout;
     private TextView setTitle, setLecturer;
 

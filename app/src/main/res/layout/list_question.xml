@@ -92,19 +92,6 @@
                     android:text="Pertanyaan"
                     android:textSize="18dp" />
 
-                <!--<RadioGroup-->
-                <!---->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<androidx.recyclerview.widget.RecyclerView-->
-                    <!--android:id="@+id/rc_answer_list"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:padding="10dp">-->
-
-                <!--</androidx.recyclerview.widget.RecyclerView>-->
-
                 <LinearLayout
                     android:id="@+id/answer_list_linear_layout"
                     android:layout_width="match_parent"
@@ -120,60 +107,20 @@
 
                 </LinearLayout>
 
-                <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:padding="10dp"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<RadioButton-->
-                <!--android:id="@+id/answer_A"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Jawaban"/>-->
-
-                <!--<RadioButton-->
-                <!--android:id="@+id/answer_B"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Jawaban"/>-->
-
-                <!--<RadioButton-->
-                <!--android:id="@+id/answer_C"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Jawaban"/>-->
-
-                <!--<RadioButton-->
-                <!--android:id="@+id/answer_D"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Jawaban"/>-->
-
-                <!--<RadioButton-->
-                <!--android:id="@+id/answer_E"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Jawaban"/>-->
-
-                <!--</LinearLayout>-->
-
-                <!--</RadioGroup>-->
-
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <Button
-                    android:id="@+id/submit_answer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_primary"
-                    android:text="Submit"
-                    android:textSize="16dp" />
-            </LinearLayout>
+                <!--<Button-->
+                    <!--android:id="@+id/submit_answer"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@drawable/button_primary"-->
+                    <!--android:text="Submit"-->
+                    <!--android:textSize="16dp" />-->
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 

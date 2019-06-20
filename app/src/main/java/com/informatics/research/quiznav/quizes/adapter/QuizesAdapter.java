@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHolder> {
 
     private ArrayList<Quizes> dfQuizes;
+    private String MaterialCode;
     private Activity mActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -40,9 +41,10 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
         }
     }
 
-    public QuizesAdapter(ArrayList<Quizes> dfQuizes, Activity mActivity) {
+    public QuizesAdapter(ArrayList<Quizes> dfQuizes, Activity mActivity, String MaterialCode) {
         this.dfQuizes = dfQuizes;
         this.mActivity = mActivity;
+        this.MaterialCode = MaterialCode;
     }
 
     @NonNull
@@ -68,7 +70,8 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
             public void onClick(View view) {
                 Intent goDetail = new Intent(mActivity, QuizActivity.class);
                 goDetail.putExtra("Quiz Code", quizes.getKey())
-                        .putExtra("Questions", quizes.getQuestions());
+                        .putExtra("Questions", quizes.getQuestions())
+                        .putExtra("Material Code", MaterialCode);
                 mActivity.startActivity(goDetail);
             }
         });

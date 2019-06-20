@@ -134,7 +134,7 @@ public class QuizesListActivity extends AppCompatActivity {
                     quizesHashMap.put(ds.getKey(), ds.getValue(Quizes.class));
                 }
 
-                quizesAdapter = new QuizesAdapter(quizesArrayList, QuizesListActivity.this);
+                quizesAdapter = new QuizesAdapter(quizesArrayList, QuizesListActivity.this, MaterialCode);
                 rc_quizes_list_layout.setAdapter(quizesAdapter);
                 loading.dismiss();
             }
