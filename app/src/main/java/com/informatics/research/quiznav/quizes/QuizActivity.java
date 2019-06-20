@@ -32,7 +32,6 @@ public class QuizActivity extends AppCompatActivity {
     private RecyclerView rc_question_list;
     private LinearLayout number_of_question_list_layout, number_of_question_linear_layout, answer_list_linear_layout, answer_list_layout;
     private Button number_of_question;
-    private RadioButton radio_answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

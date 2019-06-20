@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorGeneral"
-    android:orientation="vertical"
-    android:padding="1dp">
+    android:orientation="vertical">
 
-    <RadioButton
-        android:id="@+id/radio_answer"
+    <RadioGroup
+        android:id="@+id/radio_group_answer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Jawaban" />
+        android:layout_height="match_parent">
 
+    </RadioGroup>
 </LinearLayout>
