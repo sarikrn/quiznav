@@ -43,7 +43,7 @@ public class QuizActivity extends AppCompatActivity {
     private ProgressDialog loading;
     private QuestionAdapter questionAdapter;
 
-    private HashMap<String, String> dfAnswersUser, choosenMaterial;
+    private HashMap<String, String> dfAnswersUser, tempHistory;
     private HashMap<String, Questions> questionsHashMap;
     private ArrayList<Questions> questionsArrayList;
     private String MaterialCode, QuizCode;
@@ -57,16 +57,17 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        choosenMaterial = new HashMap<>();
-        choosenMaterial = (HashMap<String, String>) getIntent().getSerializableExtra("Choosen Material");
-        QuizCode = getIntent().getStringExtra("Quiz Code");
-
-        dbQuestion = database.getReference("quizes").child(choosenMaterial.get("Material Code")).child(QuizCode).child("questions");
-        dbResult = database.getReference("results").child("16523060");
-
         rc_question_list = (RecyclerView) findViewById(R.id.rc_question_list);
         number_of_question_list_layout = findViewById(R.id.number_of_question_list_layout);
         submit_answer = findViewById(R.id.submit_answer);
+
+        tempHistory = new HashMap<>((HashMap<String, String>) getIntent().getSerializableExtra("Temp History"));
+        QuizCode = tempHistory.get("Quiz Code");
+        MaterialCode = tempHistory.get("Material Code");
+
+        dbQuestion = database.getReference("quizes").child(MaterialCode).child(QuizCode).child("questions");
+        dbResult = database.getReference("results").child("16523060");
+
     }
 
     @Override
@@ -158,6 +159,7 @@ public class QuizActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(QuizActivity.this, QuizesListActivity.class);
+                intent.putExtra("Temp History", tempHistory);
                 startActivity(intent);
             }
         });

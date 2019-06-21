@@ -66,7 +66,7 @@ public class MaterialsAdapter extends RecyclerView.Adapter<MaterialsAdapter.MyVi
                 tempHistory.put("Material Desc", materials.getDesc());
 
                 Intent goDetail = new Intent(mActivity, QuizesListActivity.class);
-                goDetail.putExtra("Choosen Material", tempHistory);
+                goDetail.putExtra("Temp History", tempHistory);
                 mActivity.startActivity(goDetail);
             }
         });

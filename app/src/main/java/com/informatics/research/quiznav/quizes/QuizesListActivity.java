@@ -58,7 +58,7 @@ public class QuizesListActivity extends AppCompatActivity {
 
         content_value_material_quizes = (LinearLayout) findViewById(R.id.content_value_material_quizes);
 
-        tempHistory = (HashMap<String, String>) getIntent().getSerializableExtra("Choosen Material");
+        tempHistory = (HashMap<String, String>) getIntent().getSerializableExtra("Temp History");
         MaterialCode = tempHistory.get("Material Code");
         MaterialName = tempHistory.get("Material Name");
         MaterialDesc = tempHistory.get("Material Desc");

@@ -76,9 +76,10 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
                 String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.getDefault()).format(new Date());
                 tempHistory.put("Quiz Code", quizes.getKey());
                 tempHistory.put("Start Doing", date);
+
                 Intent goDetail = new Intent(mActivity, QuizActivity.class);
                 goDetail.putExtra("Questions", quizes.getQuestions())
-                        .putExtra("Choosen Material", tempHistory);
+                        .putExtra("Temp History", tempHistory);
                 mActivity.startActivity(goDetail);
             }
         });
