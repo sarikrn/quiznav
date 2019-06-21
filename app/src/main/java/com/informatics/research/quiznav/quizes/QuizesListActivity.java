@@ -35,6 +35,7 @@ public class QuizesListActivity extends AppCompatActivity {
 
     private ArrayList<Quizes> quizesArrayList;
     private HashMap<String, Quizes> quizesHashMap;
+    private HashMap<String, String> tempHistory = new HashMap<>();
     private String MaterialCode, MaterialName, MaterialDesc;
 
     private DatabaseReference dbQuizes;
@@ -57,9 +58,10 @@ public class QuizesListActivity extends AppCompatActivity {
 
         content_value_material_quizes = (LinearLayout) findViewById(R.id.content_value_material_quizes);
 
-        MaterialCode = getIntent().getStringExtra("Material Code");
-        MaterialName = getIntent().getStringExtra("Material Name");
-        MaterialDesc = getIntent().getStringExtra("Material Desc");
+        tempHistory = (HashMap<String, String>) getIntent().getSerializableExtra("Choosen Material");
+        MaterialCode = tempHistory.get("Material Code");
+        MaterialName = tempHistory.get("Material Name");
+        MaterialDesc = tempHistory.get("Material Desc");
 
         dbQuizes = FirebaseDatabase.getInstance().getReference("quizes").child(MaterialCode);
     }
@@ -134,7 +136,7 @@ public class QuizesListActivity extends AppCompatActivity {
                     quizesHashMap.put(ds.getKey(), ds.getValue(Quizes.class));
                 }
 
-                quizesAdapter = new QuizesAdapter(quizesArrayList, QuizesListActivity.this, MaterialCode);
+                quizesAdapter = new QuizesAdapter(quizesArrayList, QuizesListActivity.this, tempHistory);
                 rc_quizes_list_layout.setAdapter(quizesAdapter);
                 loading.dismiss();
             }

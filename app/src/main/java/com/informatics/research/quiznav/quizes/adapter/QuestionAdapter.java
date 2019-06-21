@@ -37,7 +37,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
     private Activity mActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt_question_categorize, txt_question_desc, txt_number_of_question_card_view;
+        private TextView txt_question_categorize, txt_question_desc, txt_number_of_question_card_view, txt_question_point;
         private RadioGroup radio_group_answer;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -47,6 +47,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
             txt_question_categorize = itemView.findViewById(R.id.question_categorize);
             txt_question_desc = itemView.findViewById(R.id.question_desc);
             radio_group_answer = itemView.findViewById(R.id.radio_group_answer);
+            txt_question_point = itemView.findViewById(R.id.question_point);
         }
     }
 
@@ -83,6 +84,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         holder.txt_question_desc.setText(questions.getDesc());
         holder.txt_question_categorize.setText(questions.getCategorize());
         holder.txt_question_categorize.setTextColor(CategorizeLabelColor(questions.getCategorize()));
+        holder.txt_question_point.setText("Point: " + questions.getWeight());
 
         for (HashMap.Entry<String, String> entry : questions.getAnswers().entrySet()) {
             RadioButton rb = new RadioButton(QuestionAdapter.this.mActivity);

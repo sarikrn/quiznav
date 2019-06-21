@@ -40,7 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/upper_info"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:layout_above="@+id/button_submit_layout">
 
             <LinearLayout
                 android:id="@+id/question_list_layout"
@@ -61,6 +62,7 @@
         </ScrollView>
 
         <LinearLayout
+            android:id="@+id/button_submit_layout"
             android:paddingTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -16,12 +16,17 @@ import com.informatics.research.quiznav.R;
 import com.informatics.research.quiznav.quizes.QuizActivity;
 import com.informatics.research.quiznav.quizes.model.Quizes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHolder> {
 
     private ArrayList<Quizes> dfQuizes;
-    private String MaterialCode;
+    private HashMap<String, String> tempHistory;
     private Activity mActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -41,10 +46,10 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
         }
     }
 
-    public QuizesAdapter(ArrayList<Quizes> dfQuizes, Activity mActivity, String MaterialCode) {
+    public QuizesAdapter(ArrayList<Quizes> dfQuizes, Activity mActivity, HashMap<String, String> tempHistory) {
         this.dfQuizes = dfQuizes;
         this.mActivity = mActivity;
-        this.MaterialCode = MaterialCode;
+        this.tempHistory = tempHistory;
     }
 
     @NonNull
@@ -68,10 +73,12 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
         holder.quizes_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.getDefault()).format(new Date());
+                tempHistory.put("Quiz Code", quizes.getKey());
+                tempHistory.put("Start Doing", date);
                 Intent goDetail = new Intent(mActivity, QuizActivity.class);
-                goDetail.putExtra("Quiz Code", quizes.getKey())
-                        .putExtra("Questions", quizes.getQuestions())
-                        .putExtra("Material Code", MaterialCode);
+                goDetail.putExtra("Questions", quizes.getQuestions())
+                        .putExtra("Choosen Material", tempHistory);
                 mActivity.startActivity(goDetail);
             }
         });

@@ -16,6 +16,7 @@ import com.informatics.research.quiznav.materialList.model.Materials;
 import com.informatics.research.quiznav.quizes.QuizesListActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MaterialsAdapter extends RecyclerView.Adapter<MaterialsAdapter.MyViewHolder> {
 
@@ -59,10 +60,13 @@ public class MaterialsAdapter extends RecyclerView.Adapter<MaterialsAdapter.MyVi
         holder.material_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HashMap<String, String> tempHistory = new HashMap<>();
+                tempHistory.put("Material Code", materials.getKey());
+                tempHistory.put("Material Name", materials.getTitle());
+                tempHistory.put("Material Desc", materials.getDesc());
+
                 Intent goDetail = new Intent(mActivity, QuizesListActivity.class);
-                goDetail.putExtra("Material Code", materials.getKey())
-                        .putExtra("Material Name", materials.getTitle())
-                        .putExtra("Material Desc", materials.getDesc());
+                goDetail.putExtra("Choosen Material", tempHistory);
                 mActivity.startActivity(goDetail);
             }
         });

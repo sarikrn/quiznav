@@ -4,18 +4,27 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class Questions implements Serializable{
-    private String key, categorize, desc, question_code;
+    private String key, categorize, desc, question_code, weight;
     private HashMap<String, String> answers = new HashMap<>();
 
     public Questions(){
     }
 
-    public Questions(String key, String categorize, String desc, String question_code, HashMap<String, String> answers) {
+    public Questions(String key, String categorize, String desc, String question_code, String weight, HashMap<String, String> answers) {
         this.key = key;
         this.categorize = categorize;
         this.desc = desc;
         this.question_code = question_code;
+        this.weight = weight;
         this.answers = answers;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
     public String getQuestion_code() {
