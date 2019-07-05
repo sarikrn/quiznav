@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav.user.model;
+package com.informatics.research.quiznav.database.model;
 
 public class UserModel {
     public String key, access_code, name, email, password, uid;

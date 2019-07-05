@@ -1,6 +1,8 @@
-package com.informatics.research.quiznav.quizes;
+package com.informatics.research.quiznav.activities.quizes;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -10,10 +12,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.quizes.adapter.QuizesAdapter;
-import com.informatics.research.quiznav.quizes.model.Questions;
-import com.informatics.research.quiznav.quizes.model.Quizes;
+import com.informatics.research.quiznav.activities.quizes.adapter.QuizesAdapter;
+import com.informatics.research.quiznav.database.model.Quizes;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -22,10 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,15 +37,15 @@ import static java.sql.Types.NULL;
 public class QuizesListActivity extends AppCompatActivity {
 
     private ArrayList<Quizes> quizesArrayList;
-    private HashMap<String, Quizes> quizesHashMap;
-    private HashMap<String, String> tempHistory = new HashMap<>();
+    private HashMap<String, String> tempHistory = new HashMap<>(), resultContent;
+    private HashMap<String, HashMap<String, String>> dfQuizesResult;
     private String MaterialCode, MaterialName, MaterialDesc;
 
-    private DatabaseReference dbQuizes;
+    private DatabaseReference dbQuizes, dbResults;
     private QuizesAdapter quizesAdapter;
 
     private TextView material_name, material_desc;
-    private LinearLayout content, content_value_material_quizes;
+    private LinearLayout content, content_value_material_quizes, upper_info;
     private RecyclerView rc_quizes_list_layout;
 
     private ProgressDialog loading;
@@ -51,19 +54,29 @@ public class QuizesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizes_list);
-        setTitle("Materi");
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        content_value_material_quizes = (LinearLayout) findViewById(R.id.content_value_material_quizes);
 
         tempHistory = (HashMap<String, String>) getIntent().getSerializableExtra("Temp History");
         MaterialCode = tempHistory.get("Material Code");
-        MaterialName = tempHistory.get("Material Name");
-        MaterialDesc = tempHistory.get("Material Desc");
+        MaterialName = getIntent().getStringExtra("Material Title");
+        MaterialDesc = getIntent().getStringExtra("Material Desc");
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        content_value_material_quizes = (LinearLayout) findViewById(R.id.content_value_material_quizes);
 
         dbQuizes = FirebaseDatabase.getInstance().getReference("quizes").child(MaterialCode);
+        dbResults = FirebaseDatabase.getInstance().getReference("results").child("16523060");
+
+        Toolbar toolbar = findViewById(R.id.toolbar_material_and_quizes);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(Color.parseColor(tempHistory.get("Color")));
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(Color.parseColor(tempHistory.get("Color")));
+        }
+
     }
 
     @Override
@@ -76,6 +89,7 @@ public class QuizesListActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if(item.getItemId() != NULL){
@@ -104,14 +118,42 @@ public class QuizesListActivity extends AppCompatActivity {
     };
 
     protected void UpdateUIMateri(){
+        upper_info = (LinearLayout) findViewById(R.id.upper_info);
         material_name = (TextView) findViewById(R.id.material_name);
         material_desc = (TextView) findViewById(R.id.material_desc);
 
+        upper_info.setBackgroundColor(Color.parseColor(tempHistory.get("Color")));
         material_name.setText(MaterialName);
+        material_name.setTextColor(Color.WHITE);
+
         material_desc.setText(MaterialDesc);
     }
 
     protected void UpdateUIKuis(){
+        dbResults.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dfQuizesResult = new HashMap<>();
+                resultContent = new HashMap<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    resultContent.put("quiz_status", ds.child("quiz_status").getValue().toString());
+                    resultContent.put("scores", ds.child("scores").getValue().toString());
+                    resultContent.put("trying_count", ds.child("trying_count").getValue().toString());
+
+                    dfQuizesResult.put(ds.child("quiz_code").getValue().toString(), resultContent);
+                }
+                ShowQuizesList(dfQuizesResult);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    protected void ShowQuizesList(final HashMap<String, HashMap<String, String>> dfQuizesResult){
         rc_quizes_list_layout = (RecyclerView) findViewById(R.id.rc_quizes_list_layout);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -127,16 +169,12 @@ public class QuizesListActivity extends AppCompatActivity {
         dbQuizes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                quizesHashMap = new HashMap<>();
                 quizesArrayList = new ArrayList<>();
-
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    System.out.println(ds.getKey() + " " + ds.getValue());
                     quizesArrayList.add(ds.getValue(Quizes.class));
-                    quizesHashMap.put(ds.getKey(), ds.getValue(Quizes.class));
                 }
 
-                quizesAdapter = new QuizesAdapter(quizesArrayList, QuizesListActivity.this, tempHistory);
+                quizesAdapter = new QuizesAdapter(quizesArrayList, QuizesListActivity.this, tempHistory, dfQuizesResult);
                 rc_quizes_list_layout.setAdapter(quizesAdapter);
                 loading.dismiss();
             }
@@ -147,4 +185,5 @@ public class QuizesListActivity extends AppCompatActivity {
             }
         });
     }
+
 }

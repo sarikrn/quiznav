@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav.login;
+package com.informatics.research.quiznav.activities.login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.home.HomeActivity;
+import com.informatics.research.quiznav.activities.home.HomeActivity;
 
 public class LoginActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,

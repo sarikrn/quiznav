@@ -8,7 +8,7 @@
     android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".login.LoginActivity">
+    tools:context=".activities.login.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -69,7 +69,8 @@
                 android:background="@drawable/button_primary"
                 android:text="Submit"
                 android:textColor="@android:color/black"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:elevation="0dp"/>
 
         </LinearLayout>
 
@@ -108,7 +109,8 @@
                 android:background="@color/colorSecondaryLight"
                 android:text="Sign In Google"
                 android:textColor="@android:color/black"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:elevation="0dp"/>
 
         </LinearLayout>
 

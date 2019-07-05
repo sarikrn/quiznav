@@ -14,25 +14,34 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/upper_info"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="15dp">
+                android:layout_height="100dp"
+                android:padding="15dp"
+                android:background="@color/colorSecondary">
 
                 <TextView
                     android:id="@+id/material_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Judul Materi"
-                    android:textSize="18dp" />
+                    android:textSize="20dp"
+                    android:layout_gravity="bottom"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/upper_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/material_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Deskripsi" />
-
+                    android:text="Deskripsi"
+                    android:textSize="14dp"/>
             </LinearLayout>
 
         </RelativeLayout>

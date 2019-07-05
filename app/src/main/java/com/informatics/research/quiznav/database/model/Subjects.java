@@ -1,6 +1,4 @@
-package com.informatics.research.quiznav.home.model;
-
-import com.informatics.research.quiznav.materialList.model.Materials;
+package com.informatics.research.quiznav.database.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

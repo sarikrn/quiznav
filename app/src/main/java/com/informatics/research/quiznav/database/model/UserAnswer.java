@@ -1,15 +1,15 @@
-package com.informatics.research.quiznav.quizes.model;
+package com.informatics.research.quiznav.database.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserAnswer {
     private String wa, acc;
-    private ArrayList<String> answer = new ArrayList<>();
+    private HashMap<String, String> answer = new HashMap<>();
 
     public UserAnswer() {
     }
 
-    public UserAnswer(String wa, String acc, ArrayList<String> answer) {
+    public UserAnswer(String wa, String acc, HashMap<String, String> answer) {
         this.wa = wa;
         this.acc = acc;
         this.answer = answer;
@@ -18,24 +18,19 @@ public class UserAnswer {
     public String getWa() {
         return wa;
     }
-
     public void setWa(String wa) {
         this.wa = wa;
     }
-
     public String getAcc() {
         return acc;
     }
-
     public void setAcc(String acc) {
         this.acc = acc;
     }
-
-    public ArrayList<String> getAnswer() {
+    public HashMap<String, String> getAnswer() {
         return answer;
     }
-
-    public void setAnswer(ArrayList<String> answer) {
+    public void setAnswer(HashMap<String, String> answer) {
         this.answer = answer;
     }
 }

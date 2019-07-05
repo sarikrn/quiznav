@@ -1,63 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
     android:background="@color/colorGeneral"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".materialList.MaterialListActivity"
+    tools:context=".activities.materialList.MaterialListActivity"
     tools:showIn="@layout/app_bar_material_list">
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        tools:ignore="MissingConstraints" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp">
+        android:padding="5dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/card_view_layout"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/material_name_layout"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/card_view"
-                android:gravity="bottom"
-                android:orientation="vertical"
-                android:padding="15dp"
-                tools:ignore="MissingConstraints">
+                android:layout_height="wrap_content"
+                card_view:cardBackgroundColor="#fff"
+                card_view:cardElevation="0dp"
+                card_view:cardUseCompatPadding="true">
 
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/card_view_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="100dp"
+                    android:background="@drawable/card_view_subject"
+                    android:gravity="bottom"
+                    android:orientation="vertical"
+                    android:padding="15dp">
 
-                    <TextView
-                        android:id="@+id/subject_name"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Mata Kuliah"
-                        android:textSize="22dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/lecturer_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/subject_name"
-                        android:text="Nama Dosen"
-                        android:textSize="14dp" />
+                        <TextView
+                            android:id="@+id/subject_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Mata Kuliah"
+                            android:textColor="@color/colorGeneral"
+                            android:textSize="22dp" />
 
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/lecturer_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/subject_name"
+                            android:text="Nama Dosen"
+                            android:textColor="@color/colorGeneral"
+                            android:textSize="14dp" />
 
-            </LinearLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_material_list_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="3dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 

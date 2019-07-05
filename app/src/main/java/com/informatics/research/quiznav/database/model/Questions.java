@@ -1,9 +1,10 @@
-package com.informatics.research.quiznav.quizes.model;
+package com.informatics.research.quiznav.database.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
 
 public class Questions implements Serializable{
+
     private String key, categorize, desc, question_code, weight;
     private HashMap<String, String> answers = new HashMap<>();
 

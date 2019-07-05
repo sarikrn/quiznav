@@ -10,14 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/card_view"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_view_general"
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/upper_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp">
 
             <TextView
                 android:id="@+id/material_name"
@@ -34,16 +35,44 @@
                 android:text="Tanggal di publikasikan"
                 android:textSize="14dp" />
 
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/upper_info"
+            android:background="#BDC3C7" />
+
+        <LinearLayout
+            android:id="@+id/bottom_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progress_bar_number_of_quizes"
+                style="@style/MyProgressBar"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_weight="1"
+                android:progress="30"
+                android:layout_gravity="center"/>
+
             <TextView
                 android:id="@+id/number_of_quizes"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.2"
                 android:layout_alignParentBottom="true"
                 android:gravity="end"
-                android:text="Jumlah Kuis"
+                android:text="3/10"
                 android:textSize="14dp" />
 
-        </RelativeLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

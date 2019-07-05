@@ -12,9 +12,9 @@
         android:id="@+id/card_view_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/card_view"
+        android:background="@drawable/card_view_subject"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,7 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nama Mata Kuliah"
-                android:textSize="22dp" />
+                android:textSize="22dp"
+                android:textColor="@color/colorGeneral"/>
 
             <TextView
                 android:id="@+id/year_of_study"
@@ -33,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/subject_name"
                 android:text="Tahun Ajaran"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:textColor="@color/colorGeneral"/>
 
             <TextView
                 android:id="@+id/lecturer_name"
@@ -42,7 +44,8 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="start"
                 android:text="Nama Dosen"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:textColor="@color/colorGeneral"/>
 
             <TextView
                 android:id="@+id/students_number"
@@ -51,7 +54,8 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="end"
                 android:text="Jumlah Siswa"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:textColor="@color/colorGeneral"/>
 
         </RelativeLayout>
     </LinearLayout>

@@ -1,23 +1,19 @@
-package com.informatics.research.quiznav.materialList;
+package com.informatics.research.quiznav.activities.materialList;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DatabaseReference;
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.materialList.adapter.MaterialsAdapter;
-import com.informatics.research.quiznav.materialList.model.Materials;
+import com.informatics.research.quiznav.activities.materialList.adapter.MaterialsListAdapter;
+import com.informatics.research.quiznav.database.model.Materials;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -28,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -39,31 +36,35 @@ public class MaterialListActivity extends AppCompatActivity
 
     private RecyclerView rc_material_list_layout;
     private TextView setTitle, setLecturer;
+    private LinearLayout card_view_layout;
+    private CardView material_name_layout;
 
+    private HashMap<String, String> tempHistory;
     private HashMap<String, Materials> materials;
     private ArrayList<Materials> materialsArrayList;
     private String SubjectCode, SubjectTitle, LecturerName;
-    private MaterialsAdapter materialsAdapter;
+    private MaterialsListAdapter materialsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_material_list);
 
+        tempHistory = new HashMap<>((HashMap<String, String>) getIntent().getSerializableExtra("Temp History"));
+        materials = (HashMap<String, Materials>) getIntent().getSerializableExtra("Materials");
+        SubjectCode = tempHistory.get("Subject Code");
+        SubjectTitle = getIntent().getStringExtra("Subject Title");
+        LecturerName = getIntent().getStringExtra("Lecturer Name");
+
         rc_material_list_layout = findViewById(R.id.rc_material_list_layout);
         setTitle = (TextView) findViewById(R.id.subject_name);
         setLecturer = (TextView) findViewById(R.id.lecturer_name);
+        card_view_layout = findViewById(R.id.card_view_layout);
+        material_name_layout = findViewById(R.id.material_name_layout);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -77,10 +78,11 @@ public class MaterialListActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-        SubjectCode = getIntent().getStringExtra("Subject Code");
-        SubjectTitle = getIntent().getStringExtra("Subject Title");
-        LecturerName = getIntent().getStringExtra("Lecturer Name");
-        materials = (HashMap<String, Materials>) getIntent().getSerializableExtra("Materials");
+        card_view_layout.setBackgroundColor(Color.parseColor(tempHistory.get("Color")));
+        material_name_layout.setRadius(20);
+
+        setTitle.setText(SubjectTitle);
+        setLecturer.setText(LecturerName);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rc_material_list_layout.setLayoutManager(mLayoutManager);
@@ -97,8 +99,8 @@ public class MaterialListActivity extends AppCompatActivity
             System.out.println(entry.getKey() + " " + entry.getValue());
             materialsArrayList.add(entry.getValue());
         }
-        materialsAdapter = new MaterialsAdapter(materialsArrayList, MaterialListActivity.this);
-        rc_material_list_layout.setAdapter(materialsAdapter);
+        materialsListAdapter = new MaterialsListAdapter(materialsArrayList, MaterialListActivity.this, tempHistory);
+        rc_material_list_layout.setAdapter(materialsListAdapter);
         loading.dismiss();
     }
 

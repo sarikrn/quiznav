@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav.login;
+package com.informatics.research.quiznav.activities.login;
 
 import android.app.ProgressDialog;
 import android.content.Context;

@@ -1,7 +1,8 @@
-package com.informatics.research.quiznav.home.adapter;
+package com.informatics.research.quiznav.activities.home.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.home.model.Subjects;
-import com.informatics.research.quiznav.materialList.MaterialListActivity;
+import com.informatics.research.quiznav.database.model.Subjects;
+import com.informatics.research.quiznav.activities.materialList.MaterialListActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHolder> {
 
     private ArrayList<Subjects> dfSubjects;
+    private HashMap<String, String> tempHistory = new HashMap<>();
     private Activity mActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -60,15 +63,20 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
         holder.txt_lecturer_name.setText(subjects.getLecturer());
         holder.txt_students_number.setText(String.valueOf(subjects.getStudentsCount()) + " students");
 
-//        holder.card_view_layout.setBackgroundColor(Color.WHITE);
+        holder.card_view_layout.setBackgroundColor(Color.parseColor(subjects.getCard_colour()));
+        holder.subject_list_layout.setRadius(20);
         holder.subject_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tempHistory.clear();
+                tempHistory.put("Subject Code", subjects.getKey());
+                tempHistory.put("Color", subjects.getCard_colour());
+
                 Intent goDetail = new Intent(mActivity, MaterialListActivity.class);
-                goDetail.putExtra("Subject Code", subjects.getKey())
-                        .putExtra("Subject Title", subjects.getTitle())
+                goDetail.putExtra("Subject Title", subjects.getTitle())
                         .putExtra("Lecturer Name", subjects.getLecturer())
-                        .putExtra("Materials", subjects.getMaterials());
+                        .putExtra("Materials", subjects.getMaterials())
+                        .putExtra("Temp History", tempHistory);
                 mActivity.startActivity(goDetail);
             }
         });

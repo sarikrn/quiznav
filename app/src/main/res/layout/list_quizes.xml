@@ -12,7 +12,7 @@
         android:id="@+id/quizes_list_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_view"
+        android:background="@drawable/card_view_general"
         android:orientation="vertical">
 
         <LinearLayout
@@ -25,22 +25,65 @@
             android:paddingRight="15dp"
             android:paddingBottom="10dp">
 
-            <TextView
-                android:id="@+id/quiz_title"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Judul Kuis"
-                android:textSize="18dp" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/due_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/quiz_title"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                android:text="Batas Akhir Pengerjaan"
-                android:textColor="@color/colorSubtitle"
-                android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/quiz_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Judul Kuis"
+                        android:textSize="18dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/due_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/quiz_title"
+
+                        android:text="Batas Akhir Pengerjaan"
+                        android:textColor="@color/colorSubtitle"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/remidial_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_below="@id/due_date"
+
+                        android:text="Jumlah Kesempatan Remidial : "
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="right|top">
+
+                    <Button
+                        android:id="@+id/take_remidial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ambil Remidial"
+                        android:padding="10dp"
+                        android:textSize="14dp"
+                        android:background="@drawable/button_secondary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -61,6 +104,23 @@
 
                 <View
                     android:id="@+id/divider_2"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/upper_info"
+                    android:background="#BDC3C7" />
+
+                <TextView
+                    android:id="@+id/minimun_score"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:text="98"
+                    android:textAlignment="center"
+                    android:textSize="22dp" />
+
+                <View
+                    android:id="@+id/divider_3"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_below="@id/upper_info"
@@ -89,19 +149,32 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_weight="1"
-                    android:text="Rerata Perolehan"
+                    android:text="Perolehan Nilai"
                     android:textAlignment="center"
                     android:textSize="14dp" />
 
                 <View
-                    android:id="@+id/divider_3"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_below="@id/upper_info"
                     android:background="#BDC3C7" />
 
                 <TextView
-                    android:id="@+id/b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:text="KKM"
+                    android:textAlignment="center"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/upper_info"
+                    android:background="#BDC3C7" />
+
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -121,29 +194,35 @@
             android:layout_below="@id/upper_info"
             android:background="#BDC3C7" />
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:id="@+id/bottom_info"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/divider"
+            android:orientation="horizontal"
             android:padding="15dp">
+
+            <ProgressBar
+                android:id="@+id/progress_bar_doing_question"
+                style="@style/MyProgressBar"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_weight="1"
+                android:progress="30"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/quiz_counter"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/progress_bar_number_of_quizes"
-                android:layout_marginTop="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="0.4"
                 android:gravity="end"
-                android:text="9/10" />
+                android:text="9/10"
+                android:textSize="14dp" />
 
-            <ProgressBar
-                android:id="@+id/progress_bar_number_of_quizes"
-                style="@style/MyProgressBar"
-                android:layout_width="fill_parent"
-                android:layout_height="5dp"
-                android:progress="30" />
 
-        </RelativeLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 

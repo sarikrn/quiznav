@@ -12,7 +12,7 @@
         android:id="@+id/quizes_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/card_view"
+        android:background="@drawable/card_view_general"
         android:orientation="vertical">
 
         <LinearLayout
@@ -53,7 +53,8 @@
                     android:text="Kategori Soal: Sulit"
                     android:textColor="@color/colorDanger"
                     android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textAllCaps="true"/>
 
                 <TextView
                     android:id="@+id/question_point"

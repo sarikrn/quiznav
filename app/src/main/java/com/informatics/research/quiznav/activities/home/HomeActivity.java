@@ -1,4 +1,4 @@
-package com.informatics.research.quiznav.home;
+package com.informatics.research.quiznav.activities.home;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -21,8 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.home.adapter.SubjectAdapter;
-import com.informatics.research.quiznav.home.model.Subjects;
+import com.informatics.research.quiznav.activities.home.adapter.SubjectAdapter;
+import com.informatics.research.quiznav.database.model.Subjects;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
