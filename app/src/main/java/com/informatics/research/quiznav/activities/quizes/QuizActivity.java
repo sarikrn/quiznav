@@ -95,61 +95,59 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void ReadHistoryOfResultQuiz() {
-        System.out.println("resultDb " +  resultDb.getResultByID("16523060", "1"));
-//        dfAnswerUser = new HashMap<>();
-//
-//        dbResult.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String child = String.valueOf(getAnswerHistoryCount());
-//                Boolean status = false;
-//
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    if (
-//                            ds.child("material").getValue().equals(tempHistory.get("Material Code")) &&
-//                                    ds.child("quiz_code").getValue().equals(tempHistory.get("Quiz Code")) &&
-//                                    ds.child("subject").getValue().equals(tempHistory.get("Subject Code"))
-//                    ) {
-//                        child = ds.getKey();
-//                        status = true;
-//
-//                        if(ds.child("quiz_status").getValue().toString().equalsIgnoreCase("finished")){
-//                            button_submit_layout.setVisibility(View.GONE);
-//                        }
-//                        break;
-//                    }
-//                }
-//
-//                if(!status){
-////                    resultDb.getResult("16523060", child);
+        dfAnswerUser = new HashMap<>();
+
+        dbResult.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String child = String.valueOf(getAnswerHistoryCount());
+                Boolean status = false;
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (
+                            ds.child("material").getValue().equals(tempHistory.get("Material Code")) &&
+                                    ds.child("quiz_code").getValue().equals(tempHistory.get("Quiz Code")) &&
+                                    ds.child("subject").getValue().equals(tempHistory.get("Subject Code"))
+                    ) {
+                        child = ds.getKey();
+                        status = true;
+
+                        if(ds.child("quiz_status").getValue().toString().equalsIgnoreCase("finished")){
+                            button_submit_layout.setVisibility(View.GONE);
+                        }
+                        break;
+                    }
+                }
+
+                System.out.println("status " + status);
+                if(status){
+//                    resultDb.getResult("16523060", child);
 //                    System.out.println(resultDb.getResult("16523060", child));
-////                    dbResult.child(child)
-////                            .addValueEventListener(new ValueEventListener() {
-////                                @Override
-////                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-////                                    HashMap<String, String> additional = new HashMap<>();
-////                                    additional.put("Quiz Status", dataSnapshot.child("quiz_status").getValue().toString());
-////
-////                                    dfAnswerUser.put("Answer List",(HashMap<String, String>) dataSnapshot.child("data").child("answer").getValue());
-////                                    dfAnswerUser.put("Data to Send", additional);
-////                                    QuestionList(dfAnswerUser);
-////                                }
-////
-////                                @Override
-////                                public void onCancelled(@NonNull DatabaseError databaseError) {
-////
-////                                }
-////                            });
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+                    dbResult.child(child)
+                            .addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    HashMap<String, String> additional = new HashMap<>();
+                                    additional.put("Quiz Status", dataSnapshot.child("quiz_status").getValue().toString());
+
+                                    dfAnswerUser.put("Answer List",(HashMap<String, String>) dataSnapshot.child("data").child("answer").getValue());
+                                    dfAnswerUser.put("Data to Send", additional);
+                                    QuestionList(dfAnswerUser);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void QuestionList(HashMap<String, HashMap<String, String>> dfAnswerUser) {
@@ -232,7 +230,7 @@ public class QuizActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-//
+
 //    protected void SaveAndExit() {
 //        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 //        final String currentTime = dateFormat.format(new Date());

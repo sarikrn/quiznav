@@ -128,7 +128,7 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
                 tempHistory.put("Quiz Status", "choosing");
 
                 Intent goDetail = new Intent(mActivity, QuizActivity.class);
-                goDetail
+                goDetail.putExtra("Questions", quizes.getQuestions())
                         .putExtra("Temp History", tempHistory);
                 mActivity.startActivity(goDetail);
             }

@@ -36,4 +36,8 @@ public class ResultDb {
                 });
         return dfAnswerUser;
     }
+
+    public void saveResultByID(){
+
+    }
 }
