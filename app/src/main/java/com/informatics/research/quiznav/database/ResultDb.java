@@ -14,6 +14,7 @@ public class ResultDb {
     private HashMap<String, HashMap<String, String>> dfAnswerUser;
     private DatabaseReference dbResult;
 
+//    Tidak Terpakai
     public HashMap<String, HashMap<String, String>> getResultByID(String userID, String quizResultID){
         dfAnswerUser = new HashMap<>();
         dbResult = FirebaseDatabase.getInstance().getReference("results").child(userID);

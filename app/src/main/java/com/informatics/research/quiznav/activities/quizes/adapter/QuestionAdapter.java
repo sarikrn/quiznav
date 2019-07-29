@@ -2,13 +2,17 @@ package com.informatics.research.quiznav.activities.quizes.adapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
@@ -67,42 +71,42 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         holder.txt_question_desc.setText(questions.getDesc());
         holder.txt_question_categorize.setText( questions.getCategorize());
 
-//        if (dfAnswerUser.get("Quiz Status").equalsIgnoreCase("doing")) {
-//            for (HashMap.Entry<String, String> entry : questions.getAnswers().entrySet()) {
-//                RadioButton rb = new RadioButton(QuestionAdapter.this.mActivity);
-//                int id = Integer.parseInt(entry.getKey(), 29);
-//
-//                rb.setId(id);
-//                rb.setText(entry.getValue());
-//                rb.setPadding(1, 1, 1, 1);
-//
-//                if (!dfAnswerUser.isEmpty()) {
-//                    if (dfAnswerUser.get(key).equalsIgnoreCase(entry.getKey())) {
-//                        rb.setChecked(true);
-//                    }
-//                }
-//                holder.radio_group_answer.addView(rb);
-//            }
-//
-//            holder.radio_group_answer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                @RequiresApi(api = Build.VERSION_CODES.N)
-//                @Override
-//                public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                    RadioButton rbChecked = (RadioButton) group.findViewById(checkedId);
-//                    lastChecked = GetKeyAnswer(rbChecked.getId());
-//
-//                    dfAnswerUser.put(key, lastChecked);
-//                }
-//            });
-//        }else{
-//            String answer = GetDescAnswer(questions.getAnswers(), dfAnswerUser.get(key));
-//
-//            TextView tv = new TextView(QuestionAdapter.this.mActivity);
-//            tv.setText("Jawaban: " + answer);
-//            tv.setTypeface(null, Typeface.BOLD);
-//
-//            holder.radio_group_answer.addView(tv);
-//        }
+        if (dfAnswerUser.get("Data to Send").get("Quiz Status").equalsIgnoreCase("doing")) {
+            for (HashMap.Entry<String, String> entry : questions.getAnswers().entrySet()) {
+                RadioButton rb = new RadioButton(QuestionAdapter.this.mActivity);
+                int id = Integer.parseInt(entry.getKey(), 29);
+
+                rb.setId(id);
+                rb.setText(entry.getValue());
+                rb.setPadding(1, 1, 1, 1);
+
+                if (!dfAnswerUser.isEmpty()) {
+                    if (dfAnswerUser.get("Answer List").get(key).equalsIgnoreCase(entry.getKey())) {
+                        rb.setChecked(true);
+                    }
+                }
+                holder.radio_group_answer.addView(rb);
+            }
+
+            holder.radio_group_answer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    RadioButton rbChecked = (RadioButton) group.findViewById(checkedId);
+                    lastChecked = GetKeyAnswer(rbChecked.getId());
+
+                    dfAnswerUser.get("Data to Send").put(key, lastChecked);
+                }
+            });
+        }else{
+            String answer = GetDescAnswer(questions.getAnswers(), dfAnswerUser.get("Answer List").get(key));
+
+            TextView tv = new TextView(QuestionAdapter.this.mActivity);
+            tv.setText("Jawaban: " + answer);
+            tv.setTypeface(null, Typeface.BOLD);
+
+            holder.radio_group_answer.addView(tv);
+        }
     }
 
     @Override

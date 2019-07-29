@@ -25,8 +25,12 @@ import com.informatics.research.quiznav.database.ResultDb;
 import com.informatics.research.quiznav.activities.quizes.adapter.QuestionAdapter;
 import com.informatics.research.quiznav.database.model.Questions;
 import com.informatics.research.quiznav.database.model.Result;
+import com.informatics.research.quiznav.database.model.UserAnswer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class QuizActivity extends AppCompatActivity {
@@ -75,18 +79,18 @@ public class QuizActivity extends AppCompatActivity {
         super.onStart();
 
         ReadHistoryOfResultQuiz();
-//        submit_answer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Submit();
-//            }
-//        });
-//        save_and_exit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SaveAndExit();
-//            }
-//        });
+        submit_answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Submit();
+            }
+        });
+        save_and_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveAndExit();
+            }
+        });
     }
 
     @Override
@@ -181,105 +185,105 @@ public class QuizActivity extends AppCompatActivity {
         loading.dismiss();
     }
 
-//    private void Submit() {
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-//        final String currentTime = dateFormat.format(new Date());
-//
-//        dbQuestion.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                HashMap<String, String> remidial_status = new HashMap<>();
-//                remidial_status.put("remidial_chance","");
-//                remidial_status.put("source","Save and Exit");
-//
-//                int score = 0, wa = 0, acc = 0, passed_score = 0;
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    remidial_status.put("remidial_status", ds.child("remidial_chance").getValue().toString());
-//                    passed_score = Integer.parseInt(ds.child("passed_score").getValue().toString());
-//
-//                    String keyAnswer = ds.child("key").getValue().toString();
-//                    if (questionAdapter.dfAnswerUser.get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
-//                        acc += 1;
-//                        score += Integer.parseInt(ds.child("weight").getValue().toString());
-//                    } else {
-//                        wa += 1;
-//                    }
-//                }
-//
-//                dfAnswerUser.remove("Quiz Status");
-//                SaveResultAnswer(new Result(
-//                        currentTime,
-//                        tempHistory.get("Subject Code"),
-//                        tempHistory.get("Material Code"),
-//                        tempHistory.get("Quiz Code"),
-//                        String.valueOf(score),
-//                        "finished",
-//                        getScoreStatus(score, passed_score),
-//                        null,
-//                        new UserAnswer(
-//                                String.valueOf(wa),
-//                                String.valueOf(acc),
-//                                questionAdapter.dfAnswerUser
-//                        )
-//                ),remidial_status);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+    private void Submit() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        final String currentTime = dateFormat.format(new Date());
 
-//    protected void SaveAndExit() {
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-//        final String currentTime = dateFormat.format(new Date());
-//
-//        dbQuestion.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                HashMap<String, String> remidial_status = new HashMap<>();
-//                remidial_status.put("remidial_chance","");
-//                remidial_status.put("source","Save and Exit");
-//
-//                int score = 0, wa = 0, acc = 0, passed_score = 0;
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    remidial_status.put("remidial_chance", ds.child("remidial_chance").getValue().toString());
-//                    passed_score = Integer.parseInt(ds.child("passed_score").getValue().toString());
-//
-//                    String keyAnswer = ds.child("key").getValue().toString();
-//                    if (questionAdapter.dfAnswerUser.get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
-//                        acc += 1;
-//                        score += Integer.parseInt(ds.child("weight").getValue().toString());
-//                    } else {
-//                        wa += 1;
-//                    }
-//                }
-//
-//                dfAnswerUser.remove("Quiz Status");
-//                SaveResultAnswer(new Result(
-//                        currentTime,
-//                        tempHistory.get("Subject Code"),
-//                        tempHistory.get("Material Code"),
-//                        tempHistory.get("Quiz Code"),
-//                        String.valueOf(score),
-//                        "doing",
-//                        getScoreStatus(score, passed_score),
-//                        null,
-//                        new UserAnswer(
-//                                String.valueOf(wa),
-//                                String.valueOf(acc),
-//                                questionAdapter.dfAnswerUser
-//                        )
-//                ),remidial_status);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+        dbQuestion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, String> remidial_status = new HashMap<>();
+                remidial_status.put("remidial_chance","");
+                remidial_status.put("source","Save and Exit");
+
+                int score = 0, wa = 0, acc = 0, passed_score = 0;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    remidial_status.put("remidial_status", ds.child("remidial_chance").getValue().toString());
+                    passed_score = Integer.parseInt(ds.child("passed_score").getValue().toString());
+
+                    String keyAnswer = ds.child("key").getValue().toString();
+                    if (questionAdapter.dfAnswerUser.get("Answer List").get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
+                        acc += 1;
+                        score += Integer.parseInt(ds.child("weight").getValue().toString());
+                    } else {
+                        wa += 1;
+                    }
+                }
+
+                dfAnswerUser.remove("Quiz Status");
+                SaveResultAnswer(new Result(
+                        currentTime,
+                        tempHistory.get("Subject Code"),
+                        tempHistory.get("Material Code"),
+                        tempHistory.get("Quiz Code"),
+                        String.valueOf(score),
+                        "finished",
+                        getScoreStatus(score, passed_score),
+                        null,
+                        new UserAnswer(
+                                String.valueOf(wa),
+                                String.valueOf(acc),
+                                questionAdapter.dfAnswerUser.get("Answer List")
+                        )
+                ),remidial_status);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    protected void SaveAndExit() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        final String currentTime = dateFormat.format(new Date());
+
+        dbQuestion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, String> remidial_status = new HashMap<>();
+                remidial_status.put("remidial_chance","");
+                remidial_status.put("source","Save and Exit");
+
+                int score = 0, wa = 0, acc = 0, passed_score = 0;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    remidial_status.put("remidial_chance", ds.child("remidial_chance").getValue().toString());
+                    passed_score = Integer.parseInt(ds.child("passed_score").getValue().toString());
+
+                    String keyAnswer = ds.child("key").getValue().toString();
+                    if (questionAdapter.dfAnswerUser.get("Answer List").get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
+                        acc += 1;
+                        score += Integer.parseInt(ds.child("weight").getValue().toString());
+                    } else {
+                        wa += 1;
+                    }
+                }
+
+                dfAnswerUser.remove("Quiz Status");
+                SaveResultAnswer(new Result(
+                        currentTime,
+                        tempHistory.get("Subject Code"),
+                        tempHistory.get("Material Code"),
+                        tempHistory.get("Quiz Code"),
+                        String.valueOf(score),
+                        "doing",
+                        getScoreStatus(score, passed_score),
+                        null,
+                        new UserAnswer(
+                                String.valueOf(wa),
+                                String.valueOf(acc),
+                                questionAdapter.dfAnswerUser.get("Answer List")
+                        )
+                ),remidial_status);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     protected void SaveResultAnswer(final Result result, final HashMap<String, String> remidial_status) {
         dbResult.addValueEventListener(new ValueEventListener() {
