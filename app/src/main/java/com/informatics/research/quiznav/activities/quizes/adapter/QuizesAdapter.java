@@ -42,7 +42,7 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
             txt_due_date = itemView.findViewById(R.id.due_date);
             txt_result_average = itemView.findViewById(R.id.result_average);
             txt_score_averagee = itemView.findViewById(R.id.score_averagee);
-            txt_minimun_score = itemView.findViewById(R.id.minimun_score);
+//            txt_minimun_score = itemView.findViewById(R.id.minimun_score);
             txt_remidial_count = itemView.findViewById(R.id.remidial_count);
             btn_take_remidial = itemView.findViewById(R.id.take_remidial);
             progress_bar_doing_question = itemView.findViewById(R.id.progress_bar_doing_question);

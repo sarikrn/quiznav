@@ -51,11 +51,13 @@
                 android:id="@+id/students_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/year_of_study"
                 android:layout_alignParentBottom="true"
+                android:layout_marginTop="42dp"
                 android:gravity="end"
                 android:text="Jumlah Siswa"
-                android:textSize="14dp"
-                android:textColor="@color/colorGeneral"/>
+                android:textColor="@color/colorGeneral"
+                android:textSize="14dp" />
 
         </RelativeLayout>
     </LinearLayout>
