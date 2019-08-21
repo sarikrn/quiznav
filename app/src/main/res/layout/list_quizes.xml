@@ -45,14 +45,22 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/due_date"
+                        android:id="@+id/material_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/quiz_title"
-
-                        android:text="Batas Akhir Pengerjaan"
+                        android:text="M1"
                         android:textColor="@color/colorSubtitle"
-                        android:textSize="14sp" />
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/due_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/material_name"
+                        android:text="Batas Akhir Pengerjaan"
+                        android:textColor="@color/colorSecondaryDark"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/remidial_count"
@@ -111,7 +119,7 @@
                         android:textAlignment="center"
                         android:textSize="14sp" />
                     <TextView
-                        android:id="@+id/minimun_score"
+                        android:id="@+id/score_averagee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center_horizontal"
