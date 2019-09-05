@@ -2,17 +2,22 @@ package com.informatics.research.quiznav.activities.materialList;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.informatics.research.quiznav.R;
 import com.informatics.research.quiznav.activities.materialList.adapter.MaterialsListAdapter;
+import com.informatics.research.quiznav.activities.quizes.QuizesListActivity;
 import com.informatics.research.quiznav.database.model.Materials;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,11 +29,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static java.sql.Types.NULL;
 
 public class MaterialListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +52,7 @@ public class MaterialListActivity extends AppCompatActivity
     private ArrayList<Materials> materialsArrayList;
     private String SubjectCode, SubjectTitle, LecturerName;
     private MaterialsListAdapter materialsListAdapter;
+    private LinearLayout content, content_value_material_quizes, upper_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +63,10 @@ public class MaterialListActivity extends AppCompatActivity
         materials = (HashMap<String, Materials>) getIntent().getSerializableExtra("Materials");
         SubjectCode = tempHistory.get("Subject Code");
         SubjectTitle = getIntent().getStringExtra("Subject Title");
-        LecturerName = getIntent().getStringExtra("Lecturer Name");
+
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         rc_material_list_layout = findViewById(R.id.rc_material_list_layout);
         setTitle = (TextView) findViewById(R.id.subject_name);
@@ -66,7 +78,7 @@ public class MaterialListActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_1);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -103,6 +115,36 @@ public class MaterialListActivity extends AppCompatActivity
         rc_material_list_layout.setAdapter(materialsListAdapter);
         loading.dismiss();
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            if(item.getItemId() != NULL){
+                switch (item.getItemId()) {
+                    case R.id.navigation_dashboard:
+                        content = (LinearLayout) View.inflate(MaterialListActivity.this, R.layout.content_material_list, null);
+
+                        content_value_material_quizes.removeAllViews();
+                        content_value_material_quizes.addView(content);
+
+                        break;
+                    case R.id.navigation_notifications:
+                        content = (LinearLayout) View.inflate(MaterialListActivity.this, R.layout.content_quizes_list, null);
+
+                        content_value_material_quizes.removeAllViews();
+                        content_value_material_quizes.addView(content);
+
+                        break;
+                }
+                return true;
+            }
+            return false;
+        }
+    };
+
 
     @Override
     public void onBackPressed() {
@@ -142,17 +184,9 @@ public class MaterialListActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_class) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_quiz) {
 
         }
 

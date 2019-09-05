@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
@@ -30,7 +31,7 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout quizes_list_layout;
-        public TextView txt_quiz_title, txt_due_date, txt_result_average, txt_score_averagee, txt_minimun_score, txt_remidial_count;
+        public TextView txt_quiz_title, txt_due_date, txt_result_average, txt_score_averagee, txt_remidial_count;
         public ProgressBar progress_bar_doing_question;
         public Button btn_take_remidial;
 
@@ -42,7 +43,6 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
             txt_due_date = itemView.findViewById(R.id.due_date);
             txt_result_average = itemView.findViewById(R.id.result_average);
             txt_score_averagee = itemView.findViewById(R.id.score_averagee);
-//            txt_minimun_score = itemView.findViewById(R.id.minimun_score);
             txt_remidial_count = itemView.findViewById(R.id.remidial_count);
             btn_take_remidial = itemView.findViewById(R.id.take_remidial);
             progress_bar_doing_question = itemView.findViewById(R.id.progress_bar_doing_question);
@@ -71,11 +71,12 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
 
         final int remidial_chance = Integer.parseInt(quizes.getRemidial_chance());
         int trying_count = 0;
+        int result = Integer.parseInt(quizes.getPassed_score());
+        int average = Integer.parseInt(quizes.getScore_average());
 
         holder.txt_quiz_title.setText(quizes.getTitle());
         holder.txt_due_date.setText(String.valueOf(quizes.getDue_to()));
         holder.txt_score_averagee.setText(quizes.getScore_average());
-        holder.txt_minimun_score.setText(quizes.getPassed_score());
         holder.progress_bar_doing_question.setProgress(89);
 
         if (!dfQuizesResult.isEmpty()) {
@@ -101,6 +102,14 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
                         break;
                     case "scores":
                         holder.txt_result_average.setText(entry.getValue());
+
+                        //percabangan u/ perbedaan remidi
+                        if(result < average){
+                            holder.txt_result_average.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorDanger));
+                        }else{
+                            holder.txt_result_average.setTextColor((ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPassed)));
+                        }
+
                         break;
                     case "trying_count":
                         trying_count = Integer.parseInt(entry.getValue());

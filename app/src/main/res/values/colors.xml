@@ -12,4 +12,5 @@
     <color name="textColorPrimary">#000</color>
     <color name="colorDanger">#a50808</color>
     <color name="colorSubtitle">#989898</color>
+    <color name="colorPassed">#008000</color>
 </resources>

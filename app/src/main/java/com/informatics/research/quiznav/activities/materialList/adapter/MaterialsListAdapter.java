@@ -29,8 +29,8 @@ public class MaterialsListAdapter extends RecyclerView.Adapter<MaterialsListAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public CardView material_list_layout;
-        public TextView txt_material_name, txt_date_of_publication, txt_number_of_quizes;
-//        public ProgressBar progress_bar_number_of_quizes;
+        public TextView txt_material_name, txt_date_of_publication;
+//        public ProgressBar progress_bar_material;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -38,8 +38,7 @@ public class MaterialsListAdapter extends RecyclerView.Adapter<MaterialsListAdap
             material_list_layout = itemView.findViewById(R.id.material_list_layout);
             txt_material_name = itemView.findViewById(R.id.material_name);
             txt_date_of_publication = itemView.findViewById(R.id.date_of_publication);
-//            txt_number_of_quizes = itemView.findViewById(R.id.number_of_quizes);
-//            progress_bar_number_of_quizes = itemView.findViewById(R.id.progress_bar_number_of_quizes);
+//            progress_bar_material = itemView.findViewById(R.id.progress_bar_material);
         }
     }
 
@@ -64,7 +63,7 @@ public class MaterialsListAdapter extends RecyclerView.Adapter<MaterialsListAdap
         final Materials materials = dfMaterials.get(position);
 
         holder.txt_material_name.setText(materials.getTitle());
-//        holder.progress_bar_number_of_quizes.setProgress(78, true);
+//        holder.progress_bar_material.setProgress(78, true);
 
         holder.material_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override

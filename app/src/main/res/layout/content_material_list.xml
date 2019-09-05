@@ -108,8 +108,8 @@
                         android:layout_weight="0.2"
                         android:layout_alignParentBottom="true"
                         android:gravity="end"
-                        android:text="30%"
-                        android:textSize="14dp" />
+                        android:text="30/100"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </LinearLayout>
