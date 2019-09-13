@@ -3,23 +3,23 @@ package com.informatics.research.quiznav.database.model;
 import java.io.Serializable;
 
 public class Materials implements Serializable {
-    private String materials_code, desc, title;
+    private String material_code, desc, title;
 
     public Materials(){
     }
 
-    public Materials(String materials_code, String desc, String title){
-        this.materials_code = materials_code;
+    public Materials(String material_code, String desc, String title){
+        this.material_code = material_code;
         this.desc = desc;
         this.title = title;
     }
 
-    public String getMaterials_code() {
-        return materials_code;
+    public String getMaterial_code() {
+        return material_code;
     }
 
-    public void setMaterials_code(String materials_code) {
-        this.materials_code = materials_code;
+    public void setMaterial_code(String material_code) {
+        this.material_code = material_code;
     }
 
     public String getDesc() {

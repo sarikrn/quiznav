@@ -52,7 +52,6 @@ public class MaterialListActivity extends AppCompatActivity
     private ArrayList<Materials> materialsArrayList;
     private String SubjectCode, SubjectTitle, LecturerName;
     private MaterialsListAdapter materialsListAdapter;
-    private LinearLayout content, content_value_material_quizes, upper_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +62,7 @@ public class MaterialListActivity extends AppCompatActivity
         materials = (HashMap<String, Materials>) getIntent().getSerializableExtra("Materials");
         SubjectCode = tempHistory.get("Subject Code");
         SubjectTitle = getIntent().getStringExtra("Subject Title");
-
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        LecturerName = getIntent().getStringExtra("Lecturer Name");
 
         rc_material_list_layout = findViewById(R.id.rc_material_list_layout);
         setTitle = (TextView) findViewById(R.id.subject_name);
@@ -77,7 +73,7 @@ public class MaterialListActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_1);
         NavigationView navigationView = findViewById(R.id.nav_view_1);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -108,43 +104,12 @@ public class MaterialListActivity extends AppCompatActivity
 
         materialsArrayList = new ArrayList<>();
         for(HashMap.Entry<String, Materials> entry : materials.entrySet()){
-            System.out.println(entry.getKey() + " " + entry.getValue());
             materialsArrayList.add(entry.getValue());
         }
         materialsListAdapter = new MaterialsListAdapter(materialsArrayList, MaterialListActivity.this, tempHistory);
         rc_material_list_layout.setAdapter(materialsListAdapter);
         loading.dismiss();
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if(item.getItemId() != NULL){
-                switch (item.getItemId()) {
-                    case R.id.navigation_dashboard:
-                        content = (LinearLayout) View.inflate(MaterialListActivity.this, R.layout.content_material_list, null);
-
-                        content_value_material_quizes.removeAllViews();
-                        content_value_material_quizes.addView(content);
-
-                        break;
-                    case R.id.navigation_notifications:
-                        content = (LinearLayout) View.inflate(MaterialListActivity.this, R.layout.content_quizes_list, null);
-
-                        content_value_material_quizes.removeAllViews();
-                        content_value_material_quizes.addView(content);
-
-                        break;
-                }
-                return true;
-            }
-            return false;
-        }
-    };
-
 
     @Override
     public void onBackPressed() {

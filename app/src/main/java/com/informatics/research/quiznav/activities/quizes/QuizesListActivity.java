@@ -57,6 +57,7 @@ public class QuizesListActivity extends AppCompatActivity {
 
         tempHistory = (HashMap<String, String>) getIntent().getSerializableExtra("Temp History");
         MaterialCode = tempHistory.get("Material Code");
+        System.out.println("Material in Quizes: " + MaterialCode);
         MaterialName = getIntent().getStringExtra("Material Title");
         MaterialDesc = getIntent().getStringExtra("Material Desc");
 
@@ -138,7 +139,7 @@ public class QuizesListActivity extends AppCompatActivity {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     resultContent.put("quiz_status", ds.child("quiz_status").getValue().toString());
-                    resultContent.put("scores", ds.child("scores").getValue().toString());
+                    resultContent.put("scores", ds.child("score").getValue().toString());
                     resultContent.put("trying_count", ds.child("trying_count").getValue().toString());
 
                     dfQuizesResult.put(ds.child("quiz_code").getValue().toString(), resultContent);

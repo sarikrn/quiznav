@@ -63,7 +63,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.MyViewHo
         holder.txt_lecturer_name.setText(subjects.getLecturer());
         holder.txt_students_number.setText(String.valueOf(subjects.getStudentsCount()) + " students");
 
-        holder.card_view_layout.setBackgroundColor(Color.parseColor("#008000"));
+        holder.card_view_layout.setBackgroundColor(Color.parseColor(subjects.getCard_colour()));
         holder.subject_list_layout.setRadius(20);
         holder.subject_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
