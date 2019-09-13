@@ -69,7 +69,7 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         final Quizes quizes = dfQuizes.get(position);
 
-        final int remidial_chance = Integer.parseInt(quizes.getRemidial_chance());
+        final int remidial_chance = Integer.parseInt(quizes.getChance());
         int trying_count = 0;
         int result = Integer.parseInt(quizes.getPassed_score());
         int average = Integer.parseInt(quizes.getScore_average());
@@ -80,7 +80,7 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
         holder.progress_bar_doing_question.setProgress(89);
 
         if (!dfQuizesResult.isEmpty()) {
-            for (HashMap.Entry<String, String> entry : dfQuizesResult.get(quizes.getKey()).entrySet()) {
+            for (HashMap.Entry<String, String> entry : dfQuizesResult.get(quizes.getQuiz_code()).entrySet()) {
                 switch (entry.getKey()) {
                     case "quiz_status":
                         if (entry.getValue().equalsIgnoreCase("doing"))
@@ -89,7 +89,7 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
                             holder.btn_take_remidial.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    tempHistory.put("Quiz Code", quizes.getKey());
+                                    tempHistory.put("Quiz Code", quizes.getQuiz_code());
                                     tempHistory.put("Quiz Status", "doing");
 
                                     Intent goDetail = new Intent(mActivity, QuizActivity.class);
@@ -133,7 +133,7 @@ public class QuizesAdapter extends RecyclerView.Adapter<QuizesAdapter.MyViewHold
         holder.quizes_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tempHistory.put("Quiz Code", quizes.getKey());
+                tempHistory.put("Quiz Code", quizes.getQuiz_code());
                 tempHistory.put("Quiz Status", "choosing");
 
                 Intent goDetail = new Intent(mActivity, QuizActivity.class);

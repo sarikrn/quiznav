@@ -68,7 +68,7 @@ public class MaterialsListAdapter extends RecyclerView.Adapter<MaterialsListAdap
         holder.material_list_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tempHistory.put("Material Code", materials.getKey());
+                tempHistory.put("Material Code", materials.getMaterials_code());
 
                 Intent goDetail = new Intent(mActivity, QuizesListActivity.class);
                 goDetail.putExtra("Temp History", tempHistory)

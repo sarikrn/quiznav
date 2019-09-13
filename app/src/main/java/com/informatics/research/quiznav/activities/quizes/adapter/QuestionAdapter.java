@@ -66,7 +66,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         final String key = questions.getQuestion_code();
 
         holder.txt_question_categorize.setTextColor(CategorizeLabelColor(questions.getCategorize()));
-        holder.txt_question_point.setText("Point: " + questions.getWeight());
+        holder.txt_question_point.setText("Point: " + questions.getPoint());
         holder.txt_number_of_question_card_view.setText(String.valueOf(position + 1));
         holder.txt_question_desc.setText(questions.getDesc());
         holder.txt_question_categorize.setText( questions.getCategorize());

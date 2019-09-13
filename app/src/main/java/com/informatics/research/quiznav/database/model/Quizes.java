@@ -6,45 +6,29 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class Quizes implements Serializable {
-    private String score_average, title, key, create_at, due_to, passed_score, remidial_chance;
+    private String score_average, title, quiz_code, create_at, due_to, passed_score, chance;
     private HashMap<String, Questions> questions = new HashMap<>();
 
     public Quizes() {
     }
 
-    public Quizes(String score_average, String title, String key, String create_at, String due_to, String passed_score, String remidial_chance, HashMap<String, Questions> questions) {
+    public Quizes(String score_average, String title, String quiz_code, String create_at, String due_to, String passed_score, String chance, HashMap<String, Questions> questions) {
         this.score_average = score_average;
         this.title = title;
-        this.key = key;
+        this.quiz_code = quiz_code;
         this.create_at = create_at;
         this.due_to = due_to;
         this.passed_score = passed_score;
-        this.remidial_chance = remidial_chance;
+        this.chance = chance;
         this.questions = questions;
     }
 
-    public String getRemidial_chance() {
-        return remidial_chance;
+    public String getScore_average() {
+        return score_average;
     }
 
-    public void setRemidial_chance(String remidial_chance) {
-        this.remidial_chance = remidial_chance;
-    }
-
-    public String getPassed_score() {
-        return passed_score;
-    }
-
-    public void setPassed_score(String passed_score) {
-        this.passed_score = passed_score;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+    public void setScore_average(String score_average) {
+        this.score_average = score_average;
     }
 
     public String getTitle() {
@@ -55,12 +39,12 @@ public class Quizes implements Serializable {
         this.title = title;
     }
 
-    public String getScore_average() {
-        return score_average;
+    public String getQuiz_code() {
+        return quiz_code;
     }
 
-    public void setScore_average(String score_average) {
-        this.score_average = score_average;
+    public void setQuiz_code(String quiz_code) {
+        this.quiz_code = quiz_code;
     }
 
     public String getCreate_at() {
@@ -77,6 +61,22 @@ public class Quizes implements Serializable {
 
     public void setDue_to(String due_to) {
         this.due_to = due_to;
+    }
+
+    public String getPassed_score() {
+        return passed_score;
+    }
+
+    public void setPassed_score(String passed_score) {
+        this.passed_score = passed_score;
+    }
+
+    public String getChance() {
+        return chance;
+    }
+
+    public void setChance(String chance) {
+        this.chance = chance;
     }
 
     public HashMap<String, Questions> getQuestions() {

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Subjects {
-    private String key, title, lecturer, year, card_colour;
+    private String subject_code, title, lecturer, year, card_colour;
     private ArrayList<String> students = new ArrayList<>();
     private HashMap<String, Materials> materials = new HashMap<>();
 
     public Subjects(){
     }
 
-    public Subjects(String key, String title, String lecturer, String year, String card_colour, ArrayList<String> students) {
-        this.key = key;
+    public Subjects(String subject_code, String title, String lecturer, String year, String card_colour, ArrayList<String> students) {
+        this.subject_code = subject_code;
         this.title = title;
         this.lecturer = lecturer;
         this.year = year;
@@ -20,8 +20,8 @@ public class Subjects {
         this.students = students;
     }
 
-    public Subjects(String key, String title, String lecturer, String year, String card_colour, ArrayList<String> students, HashMap<String, Materials> materials) {
-        this.key = key;
+    public Subjects(String subject_code, String title, String lecturer, String year, String card_colour, ArrayList<String> students, HashMap<String, Materials> materials) {
+        this.subject_code = subject_code;
         this.title = title;
         this.lecturer = lecturer;
         this.year = year;
@@ -30,12 +30,12 @@ public class Subjects {
         this.materials = materials;
     }
 
-    public String getKey() {
-        return key;
+    public String getSubject_code() {
+        return subject_code;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setSubject_code(String subject_code) {
+        this.subject_code = subject_code;
     }
 
     public String getTitle() {
@@ -78,15 +78,15 @@ public class Subjects {
         this.students = students;
     }
 
+    public int getStudentsCount(){
+        return this.students.size();
+    }
+
     public HashMap<String, Materials> getMaterials() {
         return materials;
     }
 
     public void setMaterials(HashMap<String, Materials> materials) {
         this.materials = materials;
-    }
-
-    public Integer getStudentsCount(){
-        return students.size();
     }
 }

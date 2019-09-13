@@ -211,21 +211,21 @@ public class QuizActivity extends AppCompatActivity {
                 }
 
                 dfAnswerUser.remove("Quiz Status");
-                SaveResultAnswer(new Result(
-                        currentTime,
-                        tempHistory.get("Subject Code"),
-                        tempHistory.get("Material Code"),
-                        tempHistory.get("Quiz Code"),
-                        String.valueOf(score),
-                        "finished",
-                        getScoreStatus(score, passed_score),
-                        null,
-                        new UserAnswer(
-                                String.valueOf(wa),
-                                String.valueOf(acc),
-                                questionAdapter.dfAnswerUser.get("Answer List")
-                        )
-                ),remidial_status);
+//                SaveResultAnswer(new Result(
+//                        currentTime,
+//                        tempHistory.get("Subject Code"),
+//                        tempHistory.get("Material Code"),
+//                        tempHistory.get("Quiz Code"),
+//                        String.valueOf(score),
+//                        "finished",
+//                        getScoreStatus(score, passed_score),
+//                        null,
+//                        new UserAnswer(
+//                                String.valueOf(wa),
+//                                String.valueOf(acc),
+//                                questionAdapter.dfAnswerUser.get("Answer List")
+//                        )
+//                ),remidial_status);
             }
 
             @Override
@@ -261,21 +261,21 @@ public class QuizActivity extends AppCompatActivity {
                 }
 
                 dfAnswerUser.remove("Quiz Status");
-                SaveResultAnswer(new Result(
-                        currentTime,
-                        tempHistory.get("Subject Code"),
-                        tempHistory.get("Material Code"),
-                        tempHistory.get("Quiz Code"),
-                        String.valueOf(score),
-                        "doing",
-                        getScoreStatus(score, passed_score),
-                        null,
-                        new UserAnswer(
-                                String.valueOf(wa),
-                                String.valueOf(acc),
-                                questionAdapter.dfAnswerUser.get("Answer List")
-                        )
-                ),remidial_status);
+//                SaveResultAnswer(new Result(
+//                        currentTime,
+//                        tempHistory.get("Subject Code"),
+//                        tempHistory.get("Material Code"),
+//                        tempHistory.get("Quiz Code"),
+//                        String.valueOf(score),
+//                        "doing",
+//                        getScoreStatus(score, passed_score),
+//                        null,
+//                        new UserAnswer(
+//                                String.valueOf(wa),
+//                                String.valueOf(acc),
+//                                questionAdapter.dfAnswerUser.get("Answer List")
+//                        )
+//                ),remidial_status);
             }
 
             @Override
