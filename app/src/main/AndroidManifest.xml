@@ -15,11 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.quizes.QuizActivity"/>
+            android:name=".activities.quizes.QuizesMainListActivity"
+            android:label="@string/title_activity_quizes_main_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.quizes.QuizActivity" />
         <activity
             android:name=".activities.quizes.QuizesListActivity"
             android:label=""
-            android:theme="@style/AppTheme.Materi"/>
+            android:theme="@style/AppTheme.Materi" />
         <activity
             android:name=".activities.home.HomeActivity"
             android:label="Quiz Navigation" />

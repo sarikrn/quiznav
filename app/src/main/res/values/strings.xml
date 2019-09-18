@@ -19,5 +19,8 @@
     <string name="title_activity_quizes">QuizesActivity</string>
     <string name="title_dashboard">Materi</string>
     <string name="title_notifications">Kuis</string>
+    <string name="title_activity_quizes_main_list">QuizesMainListActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 
 </resources>
