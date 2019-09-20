@@ -14,10 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.quizes.QuizesMainListActivity"
-            android:label="@string/title_activity_quizes_main_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activities.quizes.QuizActivity" />
         <activity
             android:name=".activities.quizes.QuizesListActivity"
