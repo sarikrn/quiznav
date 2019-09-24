@@ -25,7 +25,6 @@ import com.informatics.research.quiznav.database.ResultDb;
 import com.informatics.research.quiznav.activities.quizes.adapter.QuestionAdapter;
 import com.informatics.research.quiznav.database.model.Questions;
 import com.informatics.research.quiznav.database.model.Result;
-import com.informatics.research.quiznav.database.model.UserAnswer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

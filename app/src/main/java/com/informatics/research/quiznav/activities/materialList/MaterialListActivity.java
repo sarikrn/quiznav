@@ -2,22 +2,17 @@ package com.informatics.research.quiznav.activities.materialList;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.informatics.research.quiznav.R;
 import com.informatics.research.quiznav.activities.materialList.adapter.MaterialsListAdapter;
-import com.informatics.research.quiznav.activities.quizes.QuizesListActivity;
 import com.informatics.research.quiznav.database.model.Materials;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,14 +24,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static java.sql.Types.NULL;
 
 public class MaterialListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

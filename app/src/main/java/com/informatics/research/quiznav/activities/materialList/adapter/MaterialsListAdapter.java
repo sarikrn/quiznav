@@ -6,7 +6,6 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.informatics.research.quiznav.R;
-import com.informatics.research.quiznav.database.model.Materials;
 import com.informatics.research.quiznav.activities.quizes.QuizesListActivity;
+import com.informatics.research.quiznav.database.model.Materials;
 
 import java.util.ArrayList;
 import java.util.HashMap;
