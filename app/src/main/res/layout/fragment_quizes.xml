@@ -5,12 +5,105 @@
     android:background="@color/colorGeneral"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:padding="10dp"
-        android:id="@+id/rc_quizes_list_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <RadioGroup
+            android:id="@+id/rg_quizes_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_todo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="To Do"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rb_doing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Doing" />
+
+            <RadioButton
+                android:id="@+id/rb_remidial"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Remidial" />
+
+            <RadioButton
+                android:id="@+id/rb_done"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Done" />
+        </RadioGroup>
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_all"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="All"-->
+<!--            android:elevation="0dp"-->
+<!--            android:background="@drawable/button_secondary"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:layout_marginRight="5dp"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_notdone"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Not Done Yet"-->
+<!--            android:elevation="0dp"-->
+<!--            android:background="@drawable/button_secondary"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:layout_marginRight="5dp"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_remidial"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Remidial"-->
+<!--            android:elevation="0dp"-->
+<!--            android:background="@drawable/button_secondary"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:layout_marginRight="5dp"/>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="10dp"
+            android:id="@+id/rc_quizes_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/none_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/textColorPrimary"
+            android:text="None" />
+    </LinearLayout>
+
 
 </LinearLayout>
