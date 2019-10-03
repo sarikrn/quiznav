@@ -37,7 +37,7 @@ import javax.security.auth.Subject;
 public class QuizesFragment extends Fragment {
 
     private ArrayList<Quizes> quizesArrayList;
-    private HashMap<String, String> tempHistory = new HashMap<>(), resultContent, dfQuizes;
+    private HashMap<String, String> tempHistory = new HashMap<>(), resultContent, dfQuizes, dfTemporary;
     private HashMap<String, HashMap<String, String>> dfQuizesResult;
     private String MaterialCode, SubjectCode;
 
@@ -126,16 +126,35 @@ public class QuizesFragment extends Fragment {
             case "todo":
                 dfQuizesResult = new HashMap<>();
                 dfQuizes = new HashMap<>();
+                dfTemporary = new HashMap<>();
 
                 dbSql.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot ds : dataSnapshot.getChildren()){
-                            dfQuizes.put(ds.getKey(), ds.getValue().toString());
+                            dfTemporary.put(ds.getKey(), ds.getValue().toString());
                         }
-                        dfQuizesResult.put("List", dfQuizes);
+                        dbQuizes.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                boolean status = false;
+                                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                    if(!dfTemporary.containsValue(ds.getKey())){
+                                        status = true;
+                                        dfQuizes.put(ds.getKey(), ds.child("quiz_code").getValue().toString());
+                                    }
+                                }
 
-                        LayoutViewer(!(dfQuizes.isEmpty()), "todo", dfQuizesResult);
+                                dfQuizesResult.put("List", dfQuizes);
+
+                                LayoutViewer(status, "todo", dfQuizesResult);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
 
                     @Override
@@ -215,17 +234,9 @@ public class QuizesFragment extends Fragment {
         dbQuizes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(quiz_status.equalsIgnoreCase("not todo")){
-                    for(DataSnapshot ds : dataSnapshot.getChildren()){
-                        if (dfQuizesResult.get("List").containsValue(ds.child("quiz_code").getValue())){
-                            quizesArrayList.add(ds.getValue(Quizes.class));
-                        }
-                    }
-                }else{
-                    for(DataSnapshot ds : dataSnapshot.getChildren()){
-                        if (!(dfQuizesResult.get("List").containsValue(ds.child("quiz_code").getValue()))){
-                            quizesArrayList.add(ds.getValue(Quizes.class));
-                        }
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    if (dfQuizesResult.get("List").containsValue(ds.child("quiz_code").getValue())){
+                        quizesArrayList.add(ds.getValue(Quizes.class));
                     }
                 }
                 quizesAdapter = new QuizesAdapter(quizesArrayList, getActivity(), tempHistory, dfQuizesResult, quiz_status);
