@@ -88,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="86"
-                        android:textAlignment="center"
+                        android:gravity="center"
                         android:textSize="58sp" />
 
                     <View
@@ -112,7 +112,7 @@
                         android:id="@+id/score_average"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_gravity="bottom|center"
                         android:layout_weight="1"
                         android:text="98"
                         android:textAlignment="center"

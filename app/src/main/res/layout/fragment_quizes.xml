@@ -49,39 +49,6 @@
                 android:text="Done" />
         </RadioGroup>
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_all"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="All"-->
-<!--            android:elevation="0dp"-->
-<!--            android:background="@drawable/button_secondary"-->
-<!--            android:layout_marginLeft="5dp"-->
-<!--            android:layout_marginRight="5dp"/>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_notdone"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Not Done Yet"-->
-<!--            android:elevation="0dp"-->
-<!--            android:background="@drawable/button_secondary"-->
-<!--            android:layout_marginLeft="5dp"-->
-<!--            android:layout_marginRight="5dp"/>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_remidial"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Remidial"-->
-<!--            android:elevation="0dp"-->
-<!--            android:background="@drawable/button_secondary"-->
-<!--            android:layout_marginLeft="5dp"-->
-<!--            android:layout_marginRight="5dp"/>-->
-
     </LinearLayout>
 
     <LinearLayout

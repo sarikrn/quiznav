@@ -26,18 +26,22 @@ import com.google.firebase.database.ValueEventListener;
 import com.informatics.research.quiznav.R;
 import com.informatics.research.quiznav.activities.quizes.adapter.QuizesAdapter;
 import com.informatics.research.quiznav.database.model.Quizes;
+import com.informatics.research.quiznav.database.model.Sql;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+
+import javax.security.auth.Subject;
 
 public class QuizesFragment extends Fragment {
 
     private ArrayList<Quizes> quizesArrayList;
-    private HashMap<String, String> tempHistory = new HashMap<>(), resultContent;
+    private HashMap<String, String> tempHistory = new HashMap<>(), resultContent, dfQuizes;
     private HashMap<String, HashMap<String, String>> dfQuizesResult;
-    private String MaterialCode;
+    private String MaterialCode, SubjectCode;
 
-    private DatabaseReference dbQuizes, dbResults;
+    private DatabaseReference dbQuizes, dbResults, dbSql;
     private QuizesAdapter quizesAdapter;
 
     private RecyclerView rc_quizes_list_layout;
@@ -50,8 +54,7 @@ public class QuizesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_quizes, container, false);
 
@@ -66,24 +69,26 @@ public class QuizesFragment extends Fragment {
         none_content = (TextView) rootView.findViewById(R.id.none_content);
 
         tempHistory = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra("Temp History");
+        SubjectCode = tempHistory.get("Subject Code");
         MaterialCode = tempHistory.get("Material Code");
 
-        dbQuizes = FirebaseDatabase.getInstance().getReference("quizes").child(MaterialCode);
+        dbQuizes = FirebaseDatabase.getInstance().getReference("quizes").child(SubjectCode).child(MaterialCode);
         dbResults = FirebaseDatabase.getInstance().getReference("results").child("16523060");
+        dbSql = FirebaseDatabase.getInstance().getReference("sql").child("16523060").child(SubjectCode).child(MaterialCode);
 
-        UpdateQuizesList(rootView, "todo");
-        QuizSorting(rootView);
+        UpdateQuizesList("todo");
+        QuizSorting();
 
         return rootView;
     }
 
-    protected void QuizSorting(final View rootView){
+    protected void QuizSorting(){
         rb_todo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    UpdateQuizesList(rootView, "todo");
-                }
+                    UpdateQuizesList("todo");
+            }
             }
         });
 
@@ -91,7 +96,7 @@ public class QuizesFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    UpdateQuizesList(rootView, "doing");
+                    UpdateQuizesList("doing");
                 }
             }
         });
@@ -100,7 +105,7 @@ public class QuizesFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    UpdateQuizesList(rootView, "remidial");
+                    UpdateQuizesList("remidial");
                 }
             }
         });
@@ -109,57 +114,93 @@ public class QuizesFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    UpdateQuizesList(rootView, "passed");
+                    UpdateQuizesList("passed");
                 }
             }
         });
 
     }
 
-    protected void UpdateQuizesList(final View rootView, final String quiz_status){
-        dbResults.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                boolean status = false;
-
+    protected void UpdateQuizesList(final String quiz_status){
+        switch (quiz_status){
+            case "todo":
                 dfQuizesResult = new HashMap<>();
-                resultContent = new HashMap<>();
+                dfQuizes = new HashMap<>();
 
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String material_code = ds.child("material_code").getValue().toString();
-                    String status_quiz = ds.child("quiz_status").getValue().toString();
+                dbSql.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            dfQuizes.put(ds.getKey(), ds.getValue().toString());
+                        }
+                        dfQuizesResult.put("List", dfQuizes);
 
-                    if(material_code.equalsIgnoreCase(MaterialCode) && status_quiz.equalsIgnoreCase(quiz_status)){
-                        status = true;
-
-                        resultContent.put("quiz_status", ds.child("quiz_status").getValue().toString());
-                        resultContent.put("scores", ds.child("score").getValue().toString());
-                        resultContent.put("trying_count", ds.child("trying_count").getValue().toString());
-
-                        dfQuizesResult.put(ds.child("quiz_code").getValue().toString(), resultContent);
+                        LayoutViewer(!(dfQuizes.isEmpty()), "todo", dfQuizesResult);
                     }
-                }
 
-                if(status){
-                    rc_quizes_list_layout.setVisibility(View.VISIBLE);
-                    none_content.setVisibility(View.GONE);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    ShowQuizesList(dfQuizesResult);
-                }else{
-                    rc_quizes_list_layout.setVisibility(View.GONE);
-                    none_content.setVisibility(View.VISIBLE);
-                }
+                    }
+                });
+                break;
+                default:
+                    dfQuizesResult = new HashMap<>();
+                    resultContent = new HashMap<>();
+                    dfQuizes = new HashMap<>();
 
-            }
+                    dbResults.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            boolean status = false;
+                            String quiz_code;
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                String material_code = ds.child("material_code").getValue().toString();
+                                String status_quiz = ds.child("quiz_status").getValue().toString();
 
-            }
-        });
+                                if(material_code.equalsIgnoreCase(MaterialCode)){
+                                    if(status_quiz.equalsIgnoreCase(quiz_status)){
+                                        status = true;
+                                        quiz_code = ds.child("quiz_code").getValue().toString();
+                                        resultContent.put("quiz_status", ds.child("quiz_status").getValue().toString());
+                                        resultContent.put("trying_count", ds.child("trying_count").getValue().toString());
+                                        resultContent.put("scores", ds.child("score").getValue().toString());
+
+                                        dfQuizes.put(ds.getKey(), quiz_code);
+                                        dfQuizesResult.put(quiz_code, resultContent);
+                                    }
+                                }
+                            }
+
+                            dfQuizesResult.put("List", dfQuizes);
+                            LayoutViewer(status, "not todo", dfQuizesResult);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    break;
+        }
     }
 
-    protected void ShowQuizesList(final HashMap<String, HashMap<String, String>> dfQuizesResult){
+    protected void LayoutViewer(boolean status, String quiz_status, HashMap<String, HashMap<String, String>> dfAppearedQuiz){
+        if(status){
+            rc_quizes_list_layout.setVisibility(View.VISIBLE);
+            none_content.setVisibility(View.GONE);
+
+            ShowQuizesList(dfAppearedQuiz, quiz_status);
+        }else{
+            rc_quizes_list_layout.setVisibility(View.GONE);
+            none_content.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void ShowQuizesList(final HashMap<String, HashMap<String, String>> dfQuizesResult, final String quiz_status){
+        // Recycle View iniitial
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         rc_quizes_list_layout.setLayoutManager(mLayoutManager);
         rc_quizes_list_layout.setItemAnimator(new DefaultItemAnimator());
@@ -170,17 +211,25 @@ public class QuizesFragment extends Fragment {
                 true,
                 false);
 
+        quizesArrayList = new ArrayList<>();
         dbQuizes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                quizesArrayList = new ArrayList<>();
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    quizesArrayList.add(ds.getValue(Quizes.class));
+                if(quiz_status.equalsIgnoreCase("not todo")){
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        if (dfQuizesResult.get("List").containsValue(ds.child("quiz_code").getValue())){
+                            quizesArrayList.add(ds.getValue(Quizes.class));
+                        }
+                    }
+                }else{
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        if (!(dfQuizesResult.get("List").containsValue(ds.child("quiz_code").getValue()))){
+                            quizesArrayList.add(ds.getValue(Quizes.class));
+                        }
+                    }
                 }
-
-                quizesAdapter = new QuizesAdapter(quizesArrayList, getActivity(), tempHistory, dfQuizesResult);
+                quizesAdapter = new QuizesAdapter(quizesArrayList, getActivity(), tempHistory, dfQuizesResult, quiz_status);
                 rc_quizes_list_layout.setAdapter(quizesAdapter);
-                loading.dismiss();
             }
 
             @Override
@@ -188,5 +237,7 @@ public class QuizesFragment extends Fragment {
                 throw databaseError.toException();
             }
         });
+
+        loading.dismiss();
     }
 }

@@ -3,20 +3,19 @@ package com.informatics.research.quiznav.database.model;
 import java.io.Serializable;
 
 public class Result implements Serializable {
-    private String last_modified, subject_code, material_code, quiz_code, score, quiz_status, result_status, trying_count;
+    private String last_modified, subject_code, material_code, quiz_code, score, quiz_status, trying_count;
     private UserAnswer data;
 
     public Result() {
     }
 
-    public Result(String last_modified, String subject_code, String material_code, String quiz_code, String score, String quiz_status, String result_status, String trying_count, UserAnswer data) {
+    public Result(String last_modified, String subject_code, String material_code, String quiz_code, String score, String quiz_status, String trying_count, UserAnswer data) {
         this.last_modified = last_modified;
         this.subject_code = subject_code;
         this.material_code = material_code;
         this.quiz_code = quiz_code;
         this.score = score;
         this.quiz_status = quiz_status;
-        this.result_status = result_status;
         this.trying_count = trying_count;
         this.data = data;
     }
@@ -67,14 +66,6 @@ public class Result implements Serializable {
 
     public void setQuiz_status(String quiz_status) {
         this.quiz_status = quiz_status;
-    }
-
-    public String getResult_status() {
-        return result_status;
-    }
-
-    public void setResult_status(String result_status) {
-        this.result_status = result_status;
     }
 
     public String getTrying_count() {

@@ -25,7 +25,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
 
     public HashMap<String, HashMap<String, String>> dfAnswerUser;
     private ArrayList<Questions> dfQuestion;
-
+    private ArrayList<String> dfQuizStatus = new ArrayList<>();
     private String lastChecked = null;
 
     private Activity mActivity;
@@ -49,6 +49,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         this.dfQuestion = dfQuestion;
         this.mActivity = mActivity;
         this.dfAnswerUser = dfAnswerUser;
+
+        dfQuizStatus.add("passed");
+        dfQuizStatus.add("done");
+        dfQuizStatus.add("remidial");
     }
 
     @NonNull
@@ -64,6 +68,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final Questions questions = dfQuestion.get(position);
         final String key = questions.getQuestion_code();
+        String quiz_status = dfAnswerUser.get("Data to Send").get("Quiz Status");
 
         holder.txt_question_categorize.setTextColor(CategorizeLabelColor(questions.getCategorize()));
         holder.txt_question_point.setText("Point: " + questions.getPoint());
@@ -71,7 +76,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         holder.txt_question_desc.setText(questions.getDesc());
         holder.txt_question_categorize.setText( questions.getCategorize());
 
-        if (dfAnswerUser.get("Data to Send").get("Quiz Status").equalsIgnoreCase("doing")) {
+        System.out.println("Quiz Status: " + quiz_status);
+        if (!(dfQuizStatus.contains(quiz_status))) {
+            //Doing and To Do List
+            System.out.println("IN");
             for (HashMap.Entry<String, String> entry : questions.getAnswers().entrySet()) {
                 RadioButton rb = new RadioButton(QuestionAdapter.this.mActivity);
                 int id = Integer.parseInt(entry.getKey(), 29);
@@ -80,7 +88,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
                 rb.setText(entry.getValue());
                 rb.setPadding(1, 1, 1, 1);
 
-                if (!dfAnswerUser.isEmpty()) {
+                if (dfAnswerUser.isEmpty()) {
                     if (dfAnswerUser.get("Answer List").get(key).equalsIgnoreCase(entry.getKey())) {
                         rb.setChecked(true);
                     }
@@ -124,6 +132,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
             case "mudah":
                 color = Color.CYAN;
                 break;
+            case "sedang":
             case "menengah":
                 color = Color.DKGRAY;
                 break;
