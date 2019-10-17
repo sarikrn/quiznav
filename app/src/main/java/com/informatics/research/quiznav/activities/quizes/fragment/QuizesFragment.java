@@ -87,7 +87,14 @@ public class QuizesFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    loading = ProgressDialog.show(getActivity(),
+                            null,
+                            "Please wait...",
+                            true,
+                            false);
+
                     UpdateQuizesList("todo");
+                    loading.dismiss();
             }
             }
         });
@@ -96,7 +103,14 @@ public class QuizesFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    loading = ProgressDialog.show(getActivity(),
+                            null,
+                            "Please wait...",
+                            true,
+                            false);
+
                     UpdateQuizesList("doing");
+                    loading.dismiss();
                 }
             }
         });
@@ -105,7 +119,14 @@ public class QuizesFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    loading = ProgressDialog.show(getActivity(),
+                            null,
+                            "Please wait...",
+                            true,
+                            false);
+
                     UpdateQuizesList("remidial");
+                    loading.dismiss();
                 }
             }
         });
@@ -114,7 +135,14 @@ public class QuizesFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    loading = ProgressDialog.show(getActivity(),
+                            null,
+                            "Please wait...",
+                            true,
+                            false);
+
                     UpdateQuizesList("passed");
+                    loading.dismiss();
                 }
             }
         });
@@ -224,12 +252,6 @@ public class QuizesFragment extends Fragment {
         rc_quizes_list_layout.setLayoutManager(mLayoutManager);
         rc_quizes_list_layout.setItemAnimator(new DefaultItemAnimator());
 
-        loading = ProgressDialog.show(getActivity(),
-                null,
-                "Please wait...",
-                true,
-                false);
-
         quizesArrayList = new ArrayList<>();
         dbQuizes.addValueEventListener(new ValueEventListener() {
             @Override
@@ -248,7 +270,5 @@ public class QuizesFragment extends Fragment {
                 throw databaseError.toException();
             }
         });
-
-        loading.dismiss();
     }
 }

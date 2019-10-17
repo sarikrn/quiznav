@@ -7,20 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.informatics.research.quiznav.R;
+import com.informatics.research.quiznav.database.MyCallback;
+import com.informatics.research.quiznav.database.QuizesDb;
 import com.informatics.research.quiznav.database.ResultDb;
 import com.informatics.research.quiznav.activities.quizes.adapter.QuestionAdapter;
 import com.informatics.research.quiznav.database.model.Questions;
@@ -50,8 +49,8 @@ public class QuizActivity extends AppCompatActivity {
     private int resultCount;
 
     private RecyclerView rc_question_list;
-    private LinearLayout number_of_question_list_layout, number_of_question_linear_layout, button_submit_layout;
-    private Button number_of_question, submit_answer, save_and_exit;
+    private LinearLayout button_submit_layout;
+    private Button submit_answer, save_and_exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,6 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         rc_question_list = (RecyclerView) findViewById(R.id.rc_question_list);
-        number_of_question_list_layout = findViewById(R.id.number_of_question_list_layout);
         submit_answer = findViewById(R.id.submit_answer);
         save_and_exit = findViewById(R.id.save_and_exit);
         button_submit_layout = findViewById(R.id.button_submit_layout);
@@ -73,8 +71,6 @@ public class QuizActivity extends AppCompatActivity {
         dbResult = database.getReference("results").child("16523060");
 
         ResultDb resultDb = new ResultDb();
-
-        resultCount = getAnswerHistoryCount();
     }
 
     @Override
@@ -85,13 +81,13 @@ public class QuizActivity extends AppCompatActivity {
         submit_answer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Submit();
+                SaveResultForButton("submit");
             }
         });
         save_and_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndExit();
+                SaveResultForButton("save and exit");
             }
         });
     }
@@ -158,6 +154,7 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 
+    // Adapter function: Read the quiestion data and making the looping
     private void QuestionList(HashMap<String, HashMap<String, String>> dfAnswerUser) {
         questionsHashMap = (HashMap<String, Questions>) getIntent().getSerializableExtra("Questions");
 
@@ -172,64 +169,20 @@ public class QuizActivity extends AppCompatActivity {
                 false);
 
         questionsArrayList = new ArrayList<>();
-        int count = 1;
         for (HashMap.Entry<String, Questions> entry : questionsHashMap.entrySet()) {
-            number_of_question_linear_layout = (LinearLayout) View.inflate(QuizActivity.this, R.layout.list_number_of_question, null);
-
-            number_of_question_list_layout.addView(number_of_question_linear_layout);
-            number_of_question = (Button) findViewById(R.id.number_of_question);
-            number_of_question.setText(String.valueOf(count));
 
             questionsArrayList.add(entry.getValue());
-
-            count++;
         }
         questionAdapter = new QuestionAdapter(questionsArrayList, QuizActivity.this, dfAnswerUser);
         rc_question_list.setAdapter(questionAdapter);
         loading.dismiss();
     }
 
-    private void Submit() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-        final String currentTime = dateFormat.format(new Date());
-
-        dbQuestion.addValueEventListener(new ValueEventListener() {
+    protected int getAnswerHistoryCount() {
+        dbResult.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String, String> remidial_status = new HashMap<>();
-                remidial_status.put("remidial_chance","");
-                remidial_status.put("source","Save and Exit");
-
-                int score = 0, wa = 0, acc = 0, passed_score = 0;
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    remidial_status.put("remidial_status", ds.child("remidial_chance").getValue().toString());
-                    passed_score = Integer.parseInt(ds.child("passed_score").getValue().toString());
-
-                    String keyAnswer = ds.child("key").getValue().toString();
-                    if (questionAdapter.dfAnswerUser.get("Answer List").get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
-                        acc += 1;
-                        score += Integer.parseInt(ds.child("weight").getValue().toString());
-                    } else {
-                        wa += 1;
-                    }
-                }
-
-                dfAnswerUser.remove("Quiz Status");
-//                SaveResultAnswer(new Result(
-//                        currentTime,
-//                        tempHistory.get("Subject Code"),
-//                        tempHistory.get("Material Code"),
-//                        tempHistory.get("Quiz Code"),
-//                        String.valueOf(score),
-//                        "finished",
-//                        getScoreStatus(score, passed_score),
-//                        null,
-//                        new UserAnswer(
-//                                String.valueOf(wa),
-//                                String.valueOf(acc),
-//                                questionAdapter.dfAnswerUser.get("Answer List")
-//                        )
-//                ),remidial_status);
+                resultCount = (int) dataSnapshot.getChildrenCount();
             }
 
             @Override
@@ -237,41 +190,50 @@ public class QuizActivity extends AppCompatActivity {
 
             }
         });
+        return resultCount;
     }
 
-    protected void SaveAndExit() {
+    protected void SaveResultForButton(final String button_status){
+        QuizesDb quizesDb = new QuizesDb();
+
+        final HashMap<String, String> remidial_status = new HashMap<>();
+        remidial_status.put("source", button_status);
+
+        tempHistory.put("Key", "chance");
+        quizesDb.getDataByKey(new MyCallback() {
+            @Override
+            public void onCallback(String value) {
+                remidial_status.put("remidial_chance", value);
+            }
+        }, tempHistory);
+
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         final String currentTime = dateFormat.format(new Date());
 
         dbQuestion.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String, String> remidial_status = new HashMap<>();
-                remidial_status.put("remidial_chance","");
-                remidial_status.put("source","Save and Exit");
-
-                int score = 0, wa = 0, acc = 0, passed_score = 0;
+                int score = 0, wa = 0, acc = 0;
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    remidial_status.put("remidial_chance", ds.child("remidial_chance").getValue().toString());
-                    passed_score = Integer.parseInt(ds.child("passed_score").getValue().toString());
 
                     String keyAnswer = ds.child("key").getValue().toString();
-                    if (questionAdapter.dfAnswerUser.get("Answer List").get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
-                        acc += 1;
-                        score += Integer.parseInt(ds.child("weight").getValue().toString());
-                    } else {
-                        wa += 1;
+                    if(questionAdapter.dfAnswerUser.get("Answer List").containsKey(ds.getKey())){
+                        if (questionAdapter.dfAnswerUser.get("Answer List").get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
+                            acc += 1;
+                            score += Integer.parseInt(ds.child("point").getValue().toString());
+                        } else {
+                            wa += 1;
+                        }
                     }
                 }
 
-                dfAnswerUser.remove("Quiz Status");
                 SaveResultAnswer(new Result(
                         currentTime,
                         SubjectCode,
                         MaterialCode,
                         QuizCode,
                         String.valueOf(score),
-                        "doing",
+                        questionAdapter.dfAnswerUser.get("Data to Send").get("Quiz Status"),
                         null,
                         new UserAnswer(
                                 String.valueOf(wa),
@@ -279,6 +241,7 @@ public class QuizActivity extends AppCompatActivity {
                                 questionAdapter.dfAnswerUser.get("Answer List")
                         )
                 ),remidial_status);
+                questionAdapter.dfAnswerUser.get("Data to Send").remove("Quiz Status");
             }
 
             @Override
@@ -308,25 +271,11 @@ public class QuizActivity extends AppCompatActivity {
                 }
 
                 int remidial_chance = Integer.parseInt(remidial_status.get("remidial_chance"));
-                if(remidial_status.get("source").equalsIgnoreCase("Submit")){
-                    remidial_chance = remidial_chance - trying_count;
+                if(remidial_status.get("source").equalsIgnoreCase("submit")){
+                    trying_count = remidial_chance - trying_count;
                 }
 
-                result.setTrying_count(String.valueOf(remidial_chance));
-
-//                dbResult.child(child)
-//                        .setValue(result)
-//                        .addOnSuccessListener(QuizActivity.this, new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(QuizActivity.this, "Kuis berhasil dikerjakan", Toast.LENGTH_SHORT).show();
-//
-//                                Intent intent = new Intent(QuizActivity.this, QuizesListActivity.class);
-//                                intent.putExtra("Temp History", tempHistory);
-//                                startActivity(intent);
-//                            }
-//                        });
-
+                result.setTrying_count(String.valueOf(trying_count));
                 resultDb.saveResultByID(result, QuizActivity.this, tempHistory, "16523060", child);
             }
 
@@ -335,84 +284,5 @@ public class QuizActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    protected int getAnswerHistoryCount() {
-        dbResult.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                resultCount = (int) dataSnapshot.getChildrenCount();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return resultCount;
-    }
-
-    private HashMap<String, String> DataResult(String button_status){
-        HashMap<String, String> DataToReturn = new HashMap<>();
-
-        switch (button_status){
-            case "submit":
-                DataToReturn.put("source","Save and Exit");
-                break;
-            case "save and exit":
-                break;
-        }
-        return null;
-    }
-
-    protected void SaveResultForButton(String button_status){
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-        final String currentTime = dateFormat.format(new Date());
-
-        dbQuestion.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String, String> remidial_status = new HashMap<>();
-                remidial_status.put("remidial_chance","");
-                remidial_status.put("source","Save and Exit");
-
-                int score = 0, wa = 0, acc = 0, passed_score = 0;
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    remidial_status.put("remidial_chance", ds.child("remidial_chance").getValue().toString());
-                    passed_score = Integer.parseInt(ds.child("passed_score").getValue().toString());
-
-                    String keyAnswer = ds.child("key").getValue().toString();
-                    if (questionAdapter.dfAnswerUser.get("Answer List").get(ds.getKey()).equalsIgnoreCase(keyAnswer)) {
-                        acc += 1;
-                        score += Integer.parseInt(ds.child("weight").getValue().toString());
-                    } else {
-                        wa += 1;
-                    }
-                }
-
-                dfAnswerUser.remove("Quiz Status");
-                SaveResultAnswer(new Result(
-                        currentTime,
-                        SubjectCode,
-                        MaterialCode,
-                        QuizCode,
-                        String.valueOf(score),
-                        "doing",
-                        null,
-                        new UserAnswer(
-                                String.valueOf(wa),
-                                String.valueOf(acc),
-                                questionAdapter.dfAnswerUser.get("Answer List")
-                        )
-                ),remidial_status);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
     }
 }

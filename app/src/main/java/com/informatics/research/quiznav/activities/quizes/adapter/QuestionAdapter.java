@@ -76,10 +76,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         holder.txt_question_desc.setText(questions.getDesc());
         holder.txt_question_categorize.setText( questions.getCategorize());
 
-        System.out.println("Quiz Status: " + quiz_status);
         if (!(dfQuizStatus.contains(quiz_status))) {
             //Doing and To Do List
-            System.out.println("IN");
             for (HashMap.Entry<String, String> entry : questions.getAnswers().entrySet()) {
                 RadioButton rb = new RadioButton(QuestionAdapter.this.mActivity);
                 int id = Integer.parseInt(entry.getKey(), 29);
@@ -88,9 +86,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
                 rb.setText(entry.getValue());
                 rb.setPadding(1, 1, 1, 1);
 
-                if (dfAnswerUser.isEmpty()) {
-                    if (dfAnswerUser.get("Answer List").get(key).equalsIgnoreCase(entry.getKey())) {
-                        rb.setChecked(true);
+                if (!dfAnswerUser.isEmpty()) {
+                    rb.setChecked(false);
+                    if(dfAnswerUser.get("Answer List").containsKey(key)){
+                        if (dfAnswerUser.get("Answer List").get(key).equalsIgnoreCase(entry.getKey())) {
+                            rb.setChecked(true);
+                        }
                     }
                 }
                 holder.radio_group_answer.addView(rb);
@@ -103,7 +104,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
                     RadioButton rbChecked = (RadioButton) group.findViewById(checkedId);
                     lastChecked = GetKeyAnswer(rbChecked.getId());
 
-                    dfAnswerUser.get("Data to Send").put(key, lastChecked);
+                    dfAnswerUser.get("Answer List").put(key, lastChecked);
                 }
             });
         }else{
@@ -126,14 +127,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.MyView
         Integer color = Color.DKGRAY;
 
         switch (Categorize) {
-            case "sulit":
+            case "SULIT":
                 color = Color.RED;
                 break;
-            case "mudah":
+            case "MUDAH":
                 color = Color.CYAN;
                 break;
-            case "sedang":
-            case "menengah":
+            case "SEDANG":
+            case "MENENGAH":
                 color = Color.DKGRAY;
                 break;
         }

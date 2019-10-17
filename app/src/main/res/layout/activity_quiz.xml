@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,45 +11,30 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <LinearLayout
-            android:id="@+id/upper_info"
+        <View
+            android:id="@+id/divider2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp">
-
-                <LinearLayout
-                    android:id="@+id/number_of_question_list_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
-
-        </LinearLayout>
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            tools:ignore="MissingConstraints" />
 
         <ScrollView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/upper_info"
-            android:layout_marginTop="8dp"
-            android:layout_above="@+id/button_submit_layout">
+            android:layout_above="@+id/button_submit_layout"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/question_list_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingTop="5dp">
+                android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_question_list"
@@ -63,23 +49,24 @@
 
         <LinearLayout
             android:id="@+id/button_submit_layout"
-            android:paddingTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <Button
                 android:id="@+id/save_and_exit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_weight="1"
                 android:layout_marginRight="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_secondary"
+                android:elevation="0dp"
                 android:text="Simpan dan Keluar"
-                android:textSize="16dp"
-                android:elevation="0dp"/>
+                android:textSize="16dp" />
 
             <Button
                 android:id="@+id/submit_answer"
@@ -88,9 +75,9 @@
                 android:layout_gravity="left"
                 android:layout_weight="1"
                 android:background="@drawable/button_primary"
+                android:elevation="0dp"
                 android:text="Submit"
-                android:textSize="16dp"
-                android:elevation="0dp"/>
+                android:textSize="16dp" />
 
         </LinearLayout>
 

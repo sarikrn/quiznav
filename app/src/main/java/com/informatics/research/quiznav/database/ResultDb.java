@@ -16,6 +16,8 @@ public class ResultDb {
     private DatabaseReference dbResult;
 
     public void saveResultByID(Result result, final Activity mActivity, final HashMap<String, String> tempHistory, String userID, String child_code){
+        System.out.println("In Result Db");
+
         dbResult = FirebaseDatabase.getInstance().getReference("results").child(userID);
 
         dbResult.child(child_code)
